@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reservia — Réservez en quelques secondes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --noir: #0f0f0f;
+    --blanc: #fafaf7;
+    --creme: #f4f0e8;
+    --accent: #c8693a;
+    --accent2: #2d6a4f;
+    --gris: #6b6b6b;
+    --border: #e2ddd6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--blanc);
+    color: var(--noir);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(250,250,247,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    letter-spacing: -0.02em;
+    color: var(--noir);
+    text-decoration: none;
+  }
+  .logo span { color: var(--accent); }
+
+  .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  .nav-links a {
+    font-size: 0.875rem; font-weight: 400; color: var(--gris);
+    text-decoration: none; letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--noir); }
+
+  .btn-nav {
+    background: var(--noir); color: var(--blanc);
+    padding: 0.6rem 1.4rem; border-radius: 100px;
+    font-size: 0.875rem; font-weight: 500;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .btn-nav:hover { background: var(--accent); color: var(--blanc); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 5rem;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 5rem 4rem 5rem 4rem;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--creme); border: 0.5px solid var(--border);
+    border-radius: 100px; padding: 0.4rem 1rem;
+    font-size: 0.8rem; color: var(--gris); font-weight: 400;
+    margin-bottom: 2rem; width: fit-content;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent2); flex-shrink: 0;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 700; line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+
+  .hero-desc {
+    font-size: 1.05rem; color: var(--gris); font-weight: 300;
+    line-height: 1.7; max-width: 420px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--accent); color: var(--blanc);
+    padding: 0.875rem 2rem; border-radius: 100px;
+    font-size: 0.95rem; font-weight: 500;
+    text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(200,105,58,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,105,58,0.4); }
+
+  .btn-secondary {
+    color: var(--noir); font-size: 0.95rem; font-weight: 400;
+    text-decoration: none; display: flex; align-items: center; gap: 0.5rem;
+    transition: gap 0.2s;
+  }
+  .btn-secondary:hover { gap: 0.8rem; }
+  .btn-secondary::after { content: '→'; }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3.5rem;
+    padding-top: 2.5rem; border-top: 0.5px solid var(--border);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700; color: var(--noir);
+  }
+  .stat-label { font-size: 0.8rem; color: var(--gris); margin-top: 0.2rem; }
+
+  /* HERO RIGHT — carte flottante */
+  .hero-right {
+    background: var(--creme);
+    display: flex; align-items: center; justify-content: center;
+    padding: 4rem 3rem;
+    position: relative;
+    animation: fadeIn 0.8s 0.2s ease both;
+  }
+
+  .hero-card {
+    background: var(--blanc);
+    border: 0.5px solid var(--border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    width: 100%; max-width: 360px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  }
+
+  .card-search {
+    display: flex; align-items: center; gap: 0.75rem;
+    background: var(--creme); border-radius: 12px;
+    padding: 0.875rem 1rem; margin-bottom: 1.25rem;
+    border: 0.5px solid var(--border);
+  }
+  .card-search input {
+    border: none; background: transparent; font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; color: var(--noir); outline: none; width: 100%;
+  }
+  .search-icon { color: var(--gris); font-size: 1rem; flex-shrink: 0; }
+
+  .card-cats {
+    display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem;
+  }
+  .cat-pill {
+    padding: 0.4rem 0.875rem; border-radius: 100px;
+    font-size: 0.8rem; border: 0.5px solid var(--border);
+    cursor: pointer; transition: all 0.15s; background: var(--blanc);
+    color: var(--gris);
+  }
+  .cat-pill.active { background: var(--noir); color: var(--blanc); border-color: var(--noir); }
+  .cat-pill:hover:not(.active) { border-color: var(--noir); color: var(--noir); }
+
+  .prestataire-item {
+    display: flex; align-items: center; gap: 0.875rem;
+    padding: 0.875rem 0; border-bottom: 0.5px solid var(--border);
+  }
+  .prestataire-item:last-child { border-bottom: none; }
+
+  .presta-avatar {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+
+  .presta-info { flex: 1; }
+  .presta-name { font-size: 0.9rem; font-weight: 500; }
+  .presta-cat { font-size: 0.78rem; color: var(--gris); }
+
+  .presta-badge {
+    font-size: 0.75rem; font-weight: 500;
+    padding: 0.3rem 0.7rem; border-radius: 100px;
+    background: #e8f5e9; color: #2d6a4f;
+  }
+
+  .floating-notif {
+    position: absolute; bottom: 3rem; left: -1rem;
+    background: var(--blanc); border: 0.5px solid var(--border);
+    border-radius: 14px; padding: 0.875rem 1.1rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    animation: float 3s ease-in-out infinite;
+    font-size: 0.85rem; font-weight: 500;
+  }
+  .notif-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent2); flex-shrink: 0; }
+
+  /* CATEGORIES */
+  .section-cats {
+    padding: 6rem 4rem;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gris);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700; line-height: 1.2;
+    letter-spacing: -0.02em; margin-bottom: 3rem;
+    max-width: 500px;
+  }
+  .section-title em { font-style: italic; color: var(--accent); }
+
+  .cats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+  }
+
+  .cat-card {
+    background: var(--creme); border-radius: 16px;
+    padding: 2rem 1.25rem; text-align: center;
+    border: 0.5px solid var(--border);
+    cursor: pointer; transition: all 0.2s;
+    text-decoration: none; color: var(--noir);
+  }
+  .cat-card:hover { background: var(--noir); color: var(--blanc); transform: translateY(-4px); }
+  .cat-card:hover .cat-card-icon { filter: grayscale(1) brightness(5); }
+
+  .cat-card-icon { font-size: 2rem; margin-bottom: 0.75rem; display: block; }
+  .cat-card-name { font-size: 0.9rem; font-weight: 500; }
+  .cat-card-count { font-size: 0.78rem; color: var(--gris); margin-top: 0.25rem; }
+  .cat-card:hover .cat-card-count { color: rgba(255,255,255,0.6); }
+
+  /* COMMENT CA MARCHE */
+  .section-how {
+    padding: 6rem 4rem;
+    background: var(--noir);
+    color: var(--blanc);
+  }
+  .section-how .section-label { color: rgba(255,255,255,0.4); }
+  .section-how .section-title { color: var(--blanc); }
+  .section-how .section-title em { color: var(--accent); }
+
+  .how-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .how-card {
+    padding: 2rem; border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 16px; transition: border-color 0.2s;
+  }
+  .how-card:hover { border-color: rgba(255,255,255,0.3); }
+
+  .how-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; font-weight: 700;
+    color: rgba(255,255,255,0.1); line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .how-title { font-size: 1.05rem; font-weight: 500; margin-bottom: 0.75rem; }
+  .how-desc { font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+  /* PRESTATAIRES */
+  .section-presta {
+    padding: 6rem 4rem;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .presta-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .presta-card {
+    border: 0.5px solid var(--border); border-radius: 16px;
+    overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer; text-decoration: none; color: var(--noir);
+  }
+  .presta-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+
+  .presta-img {
+    height: 180px; display: flex; align-items: center; justify-content: center;
+    font-size: 3.5rem;
+  }
+
+  .presta-body { padding: 1.25rem; }
+  .presta-card-cat {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--gris); margin-bottom: 0.5rem;
+  }
+  .presta-card-name { font-size: 1.05rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .presta-card-loc { font-size: 0.85rem; color: var(--gris); }
+  .presta-card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 1rem; padding-top: 1rem; border-top: 0.5px solid var(--border);
+  }
+  .presta-dispo { font-size: 0.8rem; color: var(--accent2); font-weight: 500; }
+  .presta-rating { font-size: 0.85rem; color: var(--gris); }
+
+  /* CTA PRESTATAIRE */
+  .section-cta {
+    padding: 6rem 4rem;
+    background: var(--creme);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items: center;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700; line-height: 1.1;
+    letter-spacing: -0.02em; margin-bottom: 1.25rem;
+  }
+  .cta-title em { font-style: italic; color: var(--accent); }
+  .cta-desc { font-size: 1rem; color: var(--gris); line-height: 1.7; margin-bottom: 2rem; }
+
+  .pricing-cards { display: flex; flex-direction: column; gap: 1rem; }
+  .pricing-card {
+    background: var(--blanc); border: 0.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: border-color 0.2s;
+  }
+  .pricing-card:hover { border-color: var(--accent); }
+  .pricing-card.featured { border-color: var(--accent); background: var(--accent); color: var(--blanc); }
+  .pricing-name { font-weight: 500; font-size: 0.95rem; }
+  .pricing-price { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; }
+  .pricing-price span { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 300; }
+  .pricing-card.featured .pricing-name,
+  .pricing-card.featured .pricing-price { color: var(--blanc); }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 4rem;
+    border-top: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: var(--noir); text-decoration: none;
+  }
+  .footer-logo span { color: var(--accent); }
+  .footer-copy { font-size: 0.8rem; color: var(--gris); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 980px) {
+    nav { padding: 1rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .nav-links { flex-wrap: wrap; gap: 1rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 3rem 1.5rem; }
+    .hero-right { padding: 2.5rem 1.5rem; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+    .section-cats, .section-how, .section-presta, .section-cta { padding: 4rem 1.5rem; }
+    .cats-grid { grid-template-columns: repeat(2, 1fr); }
+    .how-grid { grid-template-columns: 1fr; }
+    .presta-grid { grid-template-columns: 1fr; }
+    .section-cta { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+    .floating-notif { left: 1rem; right: 1rem; bottom: 1.5rem; }
+  }
+
+  @media (max-width: 540px) {
+    .cats-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">Reservia<span>.</span></a>
+  <div class="nav-links">
+    <a href="#comment">Comment ça marche</a>
+    <a href="dashboard.html" class="btn-nav">Espace prestataire</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">La plateforme de réservation locale</div>
+    <h1>Réservez les <em>meilleurs</em> prestataires près de chez vous</h1>
+    <p class="hero-desc">Restaurants, coiffeurs, instituts de beauté — trouvez et réservez un créneau en quelques secondes, sans attente, sans téléphone.</p>
+    <div class="hero-actions">
+      <a href="reserver.html" class="btn-primary">Trouver un prestataire</a>
+      <a href="dashboard.html" class="btn-secondary">Vous êtes prestataire</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Prestataires</div>
+      </div>
+      <div>
+        <div class="stat-num">12k+</div>
+        <div class="stat-label">Réservations</div>
+      </div>
+      <div>
+        <div class="stat-num">4.9</div>
+        <div class="stat-label">Note moyenne</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="card-search">
+        <span class="search-icon">⌕</span>
+        <input type="text" placeholder="Restaurant, coiffeur, spa...">
+      </div>
+      <div class="card-cats">
+        <span class="cat-pill active">Tous</span>
+        <span class="cat-pill">Restaurants</span>
+        <span class="cat-pill">Coiffeurs</span>
+        <span class="cat-pill">Beauté</span>
+      </div>
+      <div class="prestataire-item">
+        <div class="presta-avatar" style="background:#fce4d6;">🍽️</div>
+        <div class="presta-info">
+          <div class="presta-name">Le Petit Bistrot</div>
+          <div class="presta-cat">Restaurant · Lyon 2e</div>
+        </div>
+        <span class="presta-badge">Dispo</span>
+      </div>
+      <div class="prestataire-item">
+        <div class="presta-avatar" style="background:#e8f4f8;">✂️</div>
+        <div class="presta-info">
+          <div class="presta-name">Studio Élise</div>
+          <div class="presta-cat">Coiffeur · Lyon 6e</div>
+        </div>
+        <span class="presta-badge">Dispo</span>
+      </div>
+      <div class="prestataire-item">
+        <div class="presta-avatar" style="background:#f0f4e8;">💆</div>
+        <div class="presta-info">
+          <div class="presta-name">Spa Sérénité</div>
+          <div class="presta-cat">Institut · Lyon 3e</div>
+        </div>
+        <span class="presta-badge">Dispo</span>
+      </div>
+    </div>
+    <div class="floating-notif">
+      <div class="notif-dot"></div>
+      Réservation confirmée — 14h30 aujourd'hui
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section-cats" id="categories">
+  <div class="section-label">Explorer</div>
+  <div class="section-title">Tous les services,<br><em>une seule plateforme</em></div>
+  <div class="cats-grid">
+    <a href="reserver.html" class="cat-card">
+      <span class="cat-card-icon">🍽️</span>
+      <div class="cat-card-name">Restaurants</div>
+      <div class="cat-card-count">142 établissements</div>
+    </a>
+    <a href="reserver.html" class="cat-card">
+      <span class="cat-card-icon">✂️</span>
+      <div class="cat-card-name">Coiffeurs</div>
+      <div class="cat-card-count">89 salons</div>
+    </a>
+    <a href="reserver.html" class="cat-card">
+      <span class="cat-card-icon">💅</span>
+      <div class="cat-card-name">Beauté</div>
+      <div class="cat-card-count">76 instituts</div>
+    </a>
+    <a href="reserver.html" class="cat-card">
+      <span class="cat-card-icon">💆</span>
+      <div class="cat-card-name">Spa & Bien-être</div>
+      <div class="cat-card-count">54 spas</div>
+    </a>
+    <a href="reserver.html" class="cat-card">
+      <span class="cat-card-icon">🏋️</span>
+      <div class="cat-card-name">Sport & Coach</div>
+      <div class="cat-card-count">63 coachs</div>
+    </a>
+  </div>
+</section>
+
+<!-- COMMENT CA MARCHE -->
+<section class="section-how" id="comment">
+  <div class="section-label">Simple</div>
+  <div class="section-title">Réserver n'a jamais été<br><em>aussi rapide</em></div>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">01</div>
+      <div class="how-title">Cherchez</div>
+      <div class="how-desc">Parcourez les prestataires par catégorie, ville ou disponibilité. Consultez les avis et les services proposés.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">02</div>
+      <div class="how-title">Choisissez un créneau</div>
+      <div class="how-desc">Sélectionnez le jour et l'heure qui vous conviennent parmi les disponibilités en temps réel du prestataire.</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num">03</div>
+      <div class="how-title">Confirmez</div>
+      <div class="how-desc">Recevez une confirmation instantanée par email et SMS. Un rappel automatique vous est envoyé la veille.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESTATAIRES EN VEDETTE -->
+<section class="section-presta" id="prestataires">
+  <div class="section-label">Sélection</div>
+  <div class="section-title">Prestataires <em>en vedette</em></div>
+  <div class="presta-grid">
+    <a href="reserver.html?id=1" class="presta-card">
+      <div class="presta-img" style="background:#fce4d6;">🍽️</div>
+      <div class="presta-body">
+        <div class="presta-card-cat">Restaurant</div>
+        <div class="presta-card-name">Le Petit Bistrot</div>
+        <div class="presta-card-loc">📍 Lyon 2e</div>
+        <div class="presta-card-footer">
+          <span class="presta-dispo">Disponible aujourd'hui</span>
+          <span class="presta-rating">⭐ 4.9</span>
+        </div>
+      </div>
+    </a>
+    <a href="reserver.html?id=2" class="presta-card">
+      <div class="presta-img" style="background:#e8f4f8;">✂️</div>
+      <div class="presta-body">
+        <div class="presta-card-cat">Coiffeur</div>
+        <div class="presta-card-name">Studio Élise</div>
+        <div class="presta-card-loc">📍 Lyon 6e</div>
+        <div class="presta-card-footer">
+          <span class="presta-dispo">Disponible demain</span>
+          <span class="presta-rating">⭐ 4.8</span>
+        </div>
+      </div>
+    </a>
+    <a href="reserver.html?id=3" class="presta-card">
+      <div class="presta-img" style="background:#f0f4e8;">💆</div>
+      <div class="presta-body">
+        <div class="presta-card-cat">Spa & Bien-être</div>
+        <div class="presta-card-name">Spa Sérénité</div>
+        <div class="presta-card-loc">📍 Lyon 3e</div>
+        <div class="presta-card-footer">
+          <span class="presta-dispo">Disponible aujourd'hui</span>
+          <span class="presta-rating">⭐ 5.0</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- CTA PRESTATAIRE -->
+<section class="section-cta" id="rejoindre">
+  <div>
+    <div class="section-label">Vous êtes professionnel ?</div>
+    <div class="cta-title">Rejoignez<br><em>Reservia</em><br>dès aujourd'hui</div>
+    <p class="cta-desc">Gérez vos réservations, réduisez les no-shows et gagnez en visibilité. Plus de 500 professionnels nous font déjà confiance.</p>
+    <a href="dashboard.html" class="btn-primary">Créer mon espace prestataire</a>
+  </div>
+  <div class="pricing-cards">
+    <div class="pricing-card">
+      <div>
+        <div class="pricing-name">Starter</div>
+        <div style="font-size:0.8rem;color:var(--gris);margin-top:0.2rem">1 agenda · fonctions de base</div>
+      </div>
+      <div class="pricing-price">29€ <span>/ mois</span></div>
+    </div>
+    <div class="pricing-card featured">
+      <div>
+        <div class="pricing-name">Pro</div>
+        <div style="font-size:0.8rem;opacity:0.7;margin-top:0.2rem">Multi-agendas · rappels SMS</div>
+      </div>
+      <div class="pricing-price">59€ <span>/ mois</span></div>
+    </div>
+    <div class="pricing-card">
+      <div>
+        <div class="pricing-name">Business</div>
+        <div style="font-size:0.8rem;color:var(--gris);margin-top:0.2rem">Multi-staff · stats avancées</div>
+      </div>
+      <div class="pricing-price">99€ <span>/ mois</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">Reservia<span>.</span></a>
+  <div class="footer-copy">© 2025 Reservia — Tous droits réservés</div>
+</footer>
+
+<script>
+  document.querySelectorAll('.cat-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.cat-card, .how-card, .presta-card, .pricing-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
