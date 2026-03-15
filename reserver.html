@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reservia — Réserver</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root {
+    --noir: #0f0f0f;
+    --blanc: #fafaf7;
+    --creme: #f4f0e8;
+    --accent: #c8693a;
+    --accent2: #2d6a4f;
+    --gris: #6b6b6b;
+    --border: #e2ddd6;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'DM Sans',sans-serif; background:var(--blanc); color:var(--noir); }
+
+  /* NAV */
+  nav {
+    position:sticky; top:0; z-index:100;
+    background:rgba(250,250,247,0.95); backdrop-filter:blur(12px);
+    border-bottom:0.5px solid var(--border);
+    padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-top { display:flex; align-items:center; justify-content:space-between; width:100%; }
+  .logo { font-family:'Playfair Display',serif; font-size:1.4rem; text-decoration:none; color:var(--noir); }
+  .logo span { color:var(--accent); }
+  .nav-right { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
+  .nav-toggle {
+    display:none;
+    border:0.5px solid var(--border);
+    background:var(--blanc);
+    color:var(--noir);
+    border-radius:10px;
+    padding:0.4rem 0.6rem;
+    font-size:1.1rem;
+    cursor:pointer;
+  }
+  .btn { padding:0.5rem 1.25rem; border-radius:100px; font-size:0.875rem; font-weight:500; cursor:pointer; font-family:'DM Sans',sans-serif; transition:all 0.15s; border:none; text-decoration:none; display:inline-flex; align-items:center; }
+  .btn-outline { background:transparent; border:0.5px solid var(--border); color:var(--noir); }
+  .btn-outline:hover { background:var(--creme); }
+  .btn-accent { background:var(--accent); color:#fff; }
+  .btn-accent:hover { background:#b85a2e; }
+  .btn-dark { background:var(--noir); color:#fff; }
+  .btn-dark:hover { background:#333; }
+
+  /* VIEWS */
+  .view { display:none; }
+  .view.active { display:block; }
+
+  /* ===== VUE RECHERCHE ===== */
+  .search-hero {
+    background:var(--creme); padding:3rem 2rem;
+    text-align:center; border-bottom:0.5px solid var(--border);
+  }
+  .search-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.8rem); margin-bottom:0.5rem; }
+  .search-hero h1 em { font-style:italic; color:var(--accent); }
+  .search-hero p { color:var(--gris); margin-bottom:2rem; }
+  .search-bar {
+    display:flex; gap:0.75rem; max-width:620px; margin:0 auto;
+    background:var(--blanc); border:0.5px solid var(--border);
+    border-radius:100px; padding:0.5rem 0.5rem 0.5rem 1.5rem;
+    box-shadow:0 4px 20px rgba(0,0,0,0.06);
+  }
+  .search-bar input {
+    flex:1; border:none; background:transparent; font-family:'DM Sans',sans-serif;
+    font-size:0.95rem; color:var(--noir); outline:none;
+  }
+  .search-bar select {
+    border:none; background:transparent; font-family:'DM Sans',sans-serif;
+    font-size:0.875rem; color:var(--gris); outline:none; cursor:pointer;
+    border-left:0.5px solid var(--border); padding-left:0.75rem;
+  }
+
+  .cats-row {
+    display:flex; gap:0.5rem; overflow-x:auto; padding:1.5rem 2rem 0;
+    scrollbar-width:none;
+  }
+  .cats-row::-webkit-scrollbar { display:none; }
+  .cat-pill {
+    padding:0.5rem 1.1rem; border-radius:100px; font-size:0.85rem; white-space:nowrap;
+    border:0.5px solid var(--border); background:var(--blanc); color:var(--gris);
+    cursor:pointer; transition:all 0.15s; flex-shrink:0;
+  }
+  .cat-pill.active { background:var(--noir); color:#fff; border-color:var(--noir); }
+
+  .results-grid {
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr));
+    gap:1.25rem; padding:1.5rem 2rem 3rem;
+  }
+  .presta-card {
+    border:0.5px solid var(--border); border-radius:16px; overflow:hidden;
+    cursor:pointer; transition:all 0.2s; background:var(--blanc);
+  }
+  .presta-card:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(0,0,0,0.08); border-color:var(--accent); }
+  .presta-thumb { height:160px; display:flex; align-items:center; justify-content:center; font-size:3rem; }
+  .presta-body { padding:1rem 1.1rem; }
+  .presta-cat { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--gris); font-weight:500; }
+  .presta-name { font-size:1rem; font-weight:500; margin:0.25rem 0; }
+  .presta-loc { font-size:0.82rem; color:var(--gris); }
+  .presta-footer { display:flex; justify-content:space-between; align-items:center; margin-top:0.875rem; padding-top:0.875rem; border-top:0.5px solid var(--border); }
+  .presta-dispo { font-size:0.78rem; color:var(--accent2); font-weight:500; }
+  .presta-rating { font-size:0.82rem; color:var(--gris); }
+
+  /* ===== VUE PROFIL PRESTATAIRE ===== */
+  .profil-header {
+    background:var(--creme); padding:2rem; border-bottom:0.5px solid var(--border);
+    display:flex; gap:1.5rem; align-items:flex-start;
+  }
+  .profil-avatar { width:80px; height:80px; border-radius:16px; font-size:2.5rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .profil-name { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; }
+  .profil-meta { font-size:0.875rem; color:var(--gris); margin-top:0.3rem; }
+  .profil-desc { font-size:0.9rem; color:var(--gris); margin-top:0.75rem; max-width:500px; line-height:1.6; }
+  .back-btn { background:none; border:none; cursor:pointer; font-size:0.875rem; color:var(--gris); display:flex; align-items:center; gap:0.4rem; font-family:'DM Sans',sans-serif; margin-bottom:1rem; transition:color 0.15s; }
+  .back-btn:hover { color:var(--noir); }
+
+  .booking-layout { display:grid; grid-template-columns:1fr 340px; gap:2rem; padding:2rem; max-width:1100px; margin:0 auto; }
+
+  .services-section h2 { font-size:1rem; font-weight:500; margin-bottom:1rem; }
+  .service-item {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0.875rem 1rem; border:0.5px solid var(--border); border-radius:12px;
+    margin-bottom:0.75rem; cursor:pointer; transition:all 0.15s;
+  }
+  .service-item:hover { border-color:var(--accent); }
+  .service-item.selected { border-color:var(--accent); background:#fdf5f1; }
+  .service-item-name { font-size:0.9rem; font-weight:500; }
+  .service-item-meta { font-size:0.78rem; color:var(--gris); margin-top:0.15rem; }
+  .service-item-price { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; }
+
+  /* CALENDRIER CLIENT */
+  .booking-panel { position:sticky; top:80px; }
+  .booking-card { background:var(--blanc); border:0.5px solid var(--border); border-radius:16px; overflow:hidden; }
+  .booking-card-header { padding:1rem 1.25rem; border-bottom:0.5px solid var(--border); font-size:0.9rem; font-weight:500; }
+  .booking-card-body { padding:1.25rem; }
+
+  .cal-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
+  .cal-month { font-weight:500; font-size:0.95rem; }
+  .cal-btn { width:28px; height:28px; border-radius:7px; border:0.5px solid var(--border); background:transparent; cursor:pointer; font-size:0.85rem; display:flex; align-items:center; justify-content:center; }
+  .cal-btn:hover { background:var(--creme); }
+  .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; margin-bottom:1rem; }
+  .cal-day-label { text-align:center; font-size:0.7rem; color:var(--gris); padding:0.3rem 0; font-weight:500; }
+  .cal-day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:0.82rem; border-radius:7px; cursor:pointer; transition:all 0.15s; }
+  .cal-day:hover:not(.disabled):not(.other) { background:var(--creme); }
+  .cal-day.today { font-weight:500; color:var(--accent); }
+  .cal-day.selected { background:var(--noir); color:#fff; border-radius:7px; }
+  .cal-day.disabled { opacity:0.25; cursor:default; }
+  .cal-day.other { opacity:0.3; cursor:default; }
+  .cal-day.has-slots::after { content:''; display:block; width:4px; height:4px; border-radius:50%; background:var(--accent2); position:absolute; bottom:2px; left:50%; transform:translateX(-50%); }
+  .cal-day { position:relative; }
+
+  .slots-title { font-size:0.82rem; font-weight:500; color:var(--gris); margin-bottom:0.6rem; }
+  .slots-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.4rem; }
+  .slot { padding:0.5rem; text-align:center; border-radius:8px; font-size:0.82rem; font-weight:500; cursor:pointer; border:0.5px solid var(--border); transition:all 0.15s; }
+  .slot:hover { border-color:var(--accent); color:var(--accent); }
+  .slot.selected { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+  .booking-summary { margin-top:1rem; padding-top:1rem; border-top:0.5px solid var(--border); }
+  .summary-row { display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:0.5rem; }
+  .summary-row span:first-child { color:var(--gris); }
+  .summary-row span:last-child { font-weight:500; }
+
+  /* ===== VUE FORMULAIRE ===== */
+  .form-view { max-width:520px; margin:3rem auto; padding:0 1.5rem; }
+  .form-view h2 { font-family:'Playfair Display',serif; font-size:1.8rem; margin-bottom:0.5rem; }
+  .form-view p { color:var(--gris); margin-bottom:2rem; font-size:0.9rem; }
+  .form-group { margin-bottom:1.25rem; }
+  .form-label { font-size:0.82rem; font-weight:500; color:var(--gris); display:block; margin-bottom:0.4rem; }
+  .form-input { width:100%; padding:0.75rem 1rem; border:0.5px solid var(--border); border-radius:10px; font-family:'DM Sans',sans-serif; font-size:0.9rem; background:var(--blanc); color:var(--noir); outline:none; transition:border-color 0.15s; }
+  .form-input:focus { border-color:var(--accent); }
+  .booking-recap { background:var(--creme); border-radius:12px; padding:1rem 1.25rem; margin-bottom:1.5rem; }
+  .recap-row { display:flex; justify-content:space-between; font-size:0.875rem; padding:0.3rem 0; }
+  .recap-row span:first-child { color:var(--gris); }
+  .recap-row span:last-child { font-weight:500; }
+
+  /* ===== VUE CONFIRMATION ===== */
+  .confirm-view { max-width:480px; margin:4rem auto; padding:0 1.5rem; text-align:center; }
+  .confirm-icon { width:72px; height:72px; background:#e8f5e9; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 1.5rem; }
+  .confirm-view h2 { font-family:'Playfair Display',serif; font-size:1.8rem; margin-bottom:0.75rem; }
+  .confirm-view p { color:var(--gris); line-height:1.6; margin-bottom:2rem; }
+  .confirm-card { background:var(--creme); border-radius:14px; padding:1.25rem; text-align:left; margin-bottom:2rem; }
+
+  /* ===== VUE MES RESERVATIONS ===== */
+  .mes-resas { max-width:680px; margin:0 auto; padding:2rem 1.5rem; }
+  .mes-resas h2 { font-family:'Playfair Display',serif; font-size:1.5rem; margin-bottom:1.5rem; }
+.resa-card { border:0.5px solid var(--border); border-radius:14px; padding:1.25rem; margin-bottom:1rem; display:flex; gap:1rem; align-items:flex-start; }
+  .resa-card-date { min-width:60px; text-align:center; background:var(--creme); border-radius:10px; padding:0.5rem; }
+  .resa-card-day { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; line-height:1; }
+  .resa-card-month { font-size:0.72rem; color:var(--gris); text-transform:uppercase; letter-spacing:0.05em; }
+  .resa-card-info { flex:1; }
+  .resa-card-name { font-weight:500; font-size:0.95rem; }
+  .resa-card-meta { font-size:0.82rem; color:var(--gris); margin-top:0.2rem; }
+  .status-pill { font-size:0.75rem; font-weight:500; padding:0.3rem 0.75rem; border-radius:100px; }
+  .status-confirmed { background:#e8f5e9; color:#2d6a4f; }
+  .status-cancelled { background:#fce4e4; color:#c0392b; }
+ .resa-card-actions { display:flex; flex-direction:column; gap:0.35rem; align-items:flex-end; font-size:0.8rem; }
+
+  /* AUTH MODAL */
+  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:200; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.2s; }
+  .modal-overlay.open { opacity:1; pointer-events:all; }
+  .modal { background:var(--blanc); border-radius:20px; padding:2rem; width:100%; max-width:400px; }
+  .modal h3 { font-family:'Playfair Display',serif; font-size:1.4rem; margin-bottom:1.5rem; }
+  .modal-tabs { display:flex; gap:0; margin-bottom:1.5rem; border:0.5px solid var(--border); border-radius:10px; overflow:hidden; }
+  .modal-tab { flex:1; padding:0.6rem; text-align:center; font-size:0.875rem; cursor:pointer; background:transparent; border:none; font-family:'DM Sans',sans-serif; transition:all 0.15s; color:var(--gris); }
+  .modal-tab.active { background:var(--noir); color:#fff; }
+  .modal-actions { display:flex; gap:0.75rem; justify-content:flex-end; margin-top:1.25rem; }
+  .link-btn { background:none; border:none; color:var(--accent); cursor:pointer; font-size:0.85rem; padding:0; }
+  .link-btn:hover { text-decoration:underline; }
+  .otp-box { margin-top:0.75rem; padding-top:0.75rem; border-top:0.5px solid var(--border); }
+
+  .toast { position:fixed; bottom:2rem; right:2rem; z-index:300; background:var(--noir); color:#fff; padding:1rem 1.5rem; border-radius:14px; font-size:0.875rem; font-weight:500; transform:translateY(80px); opacity:0; transition:all 0.3s; }
+  .toast.show { transform:translateY(0); opacity:1; }
+  .toast.success { border-left:3px solid var(--accent2); }
+  .toast.error { border-left:3px solid #c0392b; }
+
+  .empty-state { text-align:center; padding:3rem 1rem; color:var(--gris); }
+  .empty-icon { font-size:2.5rem; margin-bottom:0.75rem; }
+
+  /* RESPONSIVE */
+  @media (max-width: 980px) {
+    nav { padding:1rem 1.25rem; flex-direction:column; align-items:stretch; gap:0.75rem; }
+    .nav-top { width:100%; }
+    .nav-toggle { display:inline-flex; align-items:center; justify-content:center; }
+    .nav-right { display:none; flex-direction:column; align-items:flex-start; width:100%; gap:0.75rem; }
+    .nav-right.open { display:flex; }
+    .nav-right .btn { width:100%; justify-content:center; }
+    .search-hero { padding:2rem 1.25rem; }
+    .search-bar { flex-direction:column; border-radius:18px; padding:0.75rem; }
+    .search-bar select { border-left:none; padding-left:0; }
+    .cats-row { padding:1rem 1.25rem 0; }
+    .results-grid { padding:1.25rem 1.25rem 2.5rem; }
+    .profil-header { flex-direction:column; }
+    .booking-layout { grid-template-columns:1fr; padding:1.5rem 1.25rem; }
+    .booking-panel { position:static; }
+    .form-view, .confirm-view, .mes-resas { padding:0 1.25rem; }
+  }
+
+  @media (max-width: 540px) {
+    .results-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-top">
+    <a href="index.html" class="logo">Reservia<span>.</span></a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navRight">☰</button>
+  </div>
+  <div class="nav-right" id="navRight">
+    <a class="btn btn-dark" href="dashboard.html">Espace prestataire</a>
+    <span id="navUserName" style="font-size:0.875rem;color:var(--gris)"></span>
+    <button class="btn btn-outline" onclick="showView('mes-reservations')" id="btnMesResas" style="display:none">Mes réservations</button>
+    <button class="btn btn-outline" onclick="showView('profil-client')" id="btnProfil" style="display:none">Profil</button>
+    <button class="btn btn-outline" onclick="showAuthModal()" id="btnConnexion">Connexion</button>
+    <button class="btn btn-accent" onclick="logout()" id="btnLogout" style="display:none">Déconnexion</button>
+  </div>
+</nav>
+
+<!-- VUE RECHERCHE -->
+<div class="view active" id="view-recherche">
+  <div class="search-hero">
+    <h1>Trouvez et réservez<br><em>en quelques secondes</em></h1>
+    <p>Restaurants, coiffeurs, instituts de beauté et plus encore</p>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Rechercher un prestataire..." oninput="filterPrestas()">
+      <select id="villeFilter" onchange="filterPrestas()">
+        <option value="">Toutes les villes</option>
+        <option value="Lyon">Lyon</option>
+        <option value="Paris">Paris</option>
+        <option value="Marseille">Marseille</option>
+      </select>
+      <button class="btn btn-accent" onclick="filterPrestas()">Rechercher</button>
+    </div>
+  </div>
+  <div class="cats-row" id="catsRow"></div>
+  <div class="results-grid" id="resultsGrid">
+    <div class="empty-state" style="grid-column:1/-1">
+      <div class="empty-icon">🔍</div>
+      <p>Chargement des prestataires...</p>
+    </div>
+  </div>
+</div>
+
+<!-- VUE PROFIL PRESTATAIRE -->
+<div class="view" id="view-profil">
+  <div style="padding:1rem 2rem;border-bottom:0.5px solid var(--border)">
+    <button class="back-btn" onclick="showView('recherche')">← Retour aux résultats</button>
+  </div>
+  <div class="profil-header" id="profilHeader"></div>
+  <div class="booking-layout">
+    <div>
+      <h2 style="font-size:1rem;font-weight:500;margin-bottom:1rem">Choisir un service</h2>
+      <div id="servicesList"></div>
+    </div>
+    <div class="booking-panel">
+      <div class="booking-card">
+        <div class="booking-card-header">Choisir une date et un créneau</div>
+        <div class="booking-card-body">
+          <div class="cal-nav">
+            <button class="cal-btn" onclick="changeCalMonth(-1)">‹</button>
+            <div class="cal-month" id="calMonthLabel"></div>
+            <button class="cal-btn" onclick="changeCalMonth(1)">›</button>
+          </div>
+          <div class="cal-grid" id="clientCal"></div>
+          <div id="slotsSection" style="display:none">
+            <div class="slots-title" id="slotsTitle"></div>
+            <div class="slots-grid" id="clientSlots"></div>
+          </div>
+          <div class="booking-summary" id="bookingSummary" style="display:none">
+            <div class="summary-row"><span>Service</span><span id="sumService">—</span></div>
+            <div class="summary-row"><span>Date</span><span id="sumDate">—</span></div>
+            <div class="summary-row"><span>Heure</span><span id="sumHeure">—</span></div>
+            <div class="summary-row"><span>Prix indicatif</span><span id="sumPrix">—</span></div>
+            <button class="btn btn-accent" style="width:100%;margin-top:1rem;justify-content:center" onclick="goToForm()">Continuer →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VUE FORMULAIRE -->
+<div class="view" id="view-formulaire">
+  <div class="form-view">
+    <button class="back-btn" onclick="showView('profil')">← Retour</button>
+    <h2>Vos informations</h2>
+    <p>Plus qu'une étape pour confirmer votre réservation</p>
+    <div class="booking-recap" id="formRecap"></div>
+    <div class="form-group">
+      <label class="form-label">Prénom *</label>
+      <input type="text" class="form-input" id="clientPrenom" placeholder="Marie">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Nom *</label>
+      <input type="text" class="form-input" id="clientNom" placeholder="Dupont">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email * <span style="font-size:0.75rem;color:var(--gris)">(confirmation envoyée ici)</span></label>
+      <input type="email" class="form-input" id="clientEmail" placeholder="marie@email.fr">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Téléphone</label>
+      <input type="tel" class="form-input" id="clientTel" placeholder="06 00 00 00 00">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Notes pour le prestataire</label>
+      <textarea class="form-input" id="clientNotes" rows="2" placeholder="Allergie, demande particulière..."></textarea>
+    </div>
+    <button class="btn btn-accent" style="width:100%;justify-content:center;padding:0.875rem" onclick="confirmerReservation()">Confirmer la réservation</button>
+  </div>
+</div>
+
+<!-- VUE CONFIRMATION -->
+<div class="view" id="view-confirmation">
+  <div class="confirm-view">
+    <div class="confirm-icon">✓</div>
+    <h2>Réservation confirmée !</h2>
+    <p>Un email de confirmation vous a été envoyé. N'oubliez pas votre rendez-vous !</p>
+    <div class="confirm-card" id="confirmCard"></div>
+    <div style="display:flex;gap:1rem;justify-content:center">
+      <button class="btn btn-outline" onclick="showView('mes-reservations')">Voir mes réservations</button>
+      <button class="btn btn-accent" onclick="showView('recherche')">Faire une autre réservation</button>
+    </div>
+  </div>
+</div>
+
+<!-- VUE MES RESERVATIONS -->
+<div class="view" id="view-mes-reservations">
+  <div class="mes-resas">
+    <button class="back-btn" onclick="showView('recherche')">← Retour</button>
+    <h2>Mes réservations</h2>
+    <div id="mesResasList">
+      <div class="empty-state">
+        <div class="empty-icon">📅</div>
+        <p>Aucune réservation pour l'instant</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL AVIS -->
+<div class="modal-overlay" id="reviewModal">
+  <div class="modal">
+    <h3>Laisser un avis</h3>
+    <div class="booking-recap" id="reviewRecap" style="margin-bottom:1.25rem"></div>
+    <div class="form-group">
+      <label class="form-label">Note</label>
+      <div style="display:flex;gap:0.35rem;margin-top:0.25rem">
+        <button type="button" class="btn btn-outline" style="flex:1;justify-content:center" onclick="selectRating(1)">1 ★</button>
+        <button type="button" class="btn btn-outline" style="flex:1;justify-content:center" onclick="selectRating(2)">2 ★</button>
+        <button type="button" class="btn btn-outline" style="flex:1;justify-content:center" onclick="selectRating(3)">3 ★</button>
+        <button type="button" class="btn btn-outline" style="flex:1;justify-content:center" onclick="selectRating(4)">4 ★</button>
+        <button type="button" class="btn btn-outline" style="flex:1;justify-content:center" onclick="selectRating(5)">5 ★</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Commentaire (optionnel)</label>
+      <textarea class="form-input" id="reviewComment" rows="3" placeholder="Comment s'est passée la prestation ?"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeReviewModal()">Annuler</button>
+      <button class="btn btn-accent" onclick="submitReview()">Envoyer mon avis</button>
+    </div>
+  </div>
+</div>
+
+<!-- VUE PROFIL CLIENT -->
+<div class="view" id="view-profil-client">
+  <div class="form-view">
+    <button class="back-btn" onclick="showView('recherche')">← Retour</button>
+    <h2>Mon profil</h2>
+    <p>Gérez vos informations personnelles et votre mot de passe.</p>
+    <div class="booking-recap" style="margin-bottom:1.75rem">
+      <div class="recap-row"><span>Statut</span><span id="profilClientStatut">Non connecté</span></div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email (identifiant)</label>
+      <input type="email" class="form-input" id="profilClientEmail" disabled>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Téléphone (format +33...)</label>
+      <input type="tel" class="form-input" id="profilClientTel" placeholder="+33 6 12 34 56 78">
+    </div>
+    <button class="btn btn-accent" style="width:100%;justify-content:center;margin-bottom:2rem" onclick="saveClientProfil()">Enregistrer mes infos</button>
+
+    <h2 style="font-size:1.3rem;margin-bottom:0.75rem">Changer de mot de passe</h2>
+    <div class="form-group">
+      <label class="form-label">Nouveau mot de passe</label>
+      <input type="password" class="form-input" id="profilNewPassword" placeholder="••••••••">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Confirmer le mot de passe</label>
+      <input type="password" class="form-input" id="profilNewPasswordConfirm" placeholder="••••••••">
+    </div>
+    <button class="btn btn-outline" style="width:100%;justify-content:center" onclick="changeClientPassword()">Mettre à jour le mot de passe</button>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <h3 id="authTitle">Mon espace client</h3>
+    <div class="modal-tabs">
+      <button class="modal-tab active" onclick="switchAuthTab('login')">Connexion</button>
+      <button class="modal-tab" onclick="switchAuthTab('register')">Inscription</button>
+    </div>
+    <div class="form-group" id="authPhoneGroup" style="display:none">
+      <label class="form-label">Téléphone *</label>
+      <input type="tel" class="form-input" id="authPhone" placeholder="+33 6 12 34 56 78">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-input" id="authEmail" placeholder="votre@email.fr">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Mot de passe</label>
+      <input type="password" class="form-input" id="authPassword" placeholder="••••••••">
+    </div>
+    <div class="otp-box" id="otpSection" style="display:none">
+      <div class="form-group">
+        <label class="form-label">Code SMS</label>
+        <input type="text" class="form-input" id="otpCode" placeholder="123456">
+      </div>
+      <div style="display:flex;gap:0.75rem;justify-content:flex-end">
+        <button class="btn btn-outline" onclick="sendPhoneOtp()">Renvoyer le code</button>
+        <button class="btn btn-accent" onclick="verifyPhoneCode()">Vérifier</button>
+      </div>
+    </div>
+    <div class="otp-box" id="resetSection" style="display:none">
+      <div class="form-group">
+        <label class="form-label">Nouveau mot de passe</label>
+        <input type="password" class="form-input" id="resetPassword" placeholder="••••••••">
+      </div>
+      <div style="display:flex;gap:0.75rem;justify-content:flex-end">
+        <button class="btn btn-accent" onclick="updatePassword()">Mettre à jour</button>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="link-btn" onclick="forgotPassword()">Mot de passe oublié</button>
+      <button class="btn btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn btn-accent" id="authSubmitBtn" onclick="submitAuth()">Se connecter</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// CONFIGURATION SUPABASE — même valeurs que dashboard.html
+// ============================================================
+const SUPABASE_URL = 'https://gmgnrihgaxkebakgixcr.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdtZ25yaWhnYXhrZWJha2dpeGNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDI3NzYsImV4cCI6MjA4OTA3ODc3Nn0.GBJEDXUJDpGyeGVu1EWw1si-bjo7MNTrU72QeJY4FRw';
+// ============================================================
+
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// STATE
+let currentUser = null;
+let currentProfile = null;
+let allPrestas = [];
+let allServices = [];
+let selectedPresta = null;
+let selectedService = null;
+let selectedDate = null;
+let selectedSlot = null;
+let calMonth = new Date();
+let activeCategory = 'Tous';
+let authMode = 'login';
+let currentReviewReservation = null;
+let currentRating = 0;
+
+const CATEGORIES = ['Tous','Restaurant','Coiffeur','Institut de beauté','Spa','Coach sportif'];
+const CAT_ICONS = { 'Restaurant':'🍽️','Coiffeur':'✂️','Institut de beauté':'💅','Spa':'💆','Coach sportif':'🏋️' };
+const CAT_BG = { 'Restaurant':'#fce4d6','Coiffeur':'#e8f4f8','Institut de beauté':'#fbeaf5','Spa':'#f0f4e8','Coach sportif':'#fff3e0' };
+
+function normalizePhoneInput(phone) {
+  let p = phone.replace(/[\s.-]/g, '');
+  if (p.startsWith('00')) p = '+' + p.slice(2);
+  if (!p.startsWith('+') && p.startsWith('0')) p = '+33' + p.slice(1);
+  return p;
+}
+
+// DEMO DATA (avant Supabase)
+const DEMO_PRESTAS = [
+  { id:1, nom:'Le Petit Bistrot', categorie:'Restaurant', ville:'Lyon', adresse:'12 rue de la République, Lyon 2e', description:'Restaurant traditionnel lyonnais, cuisine du marché, vins naturels.', emoji:'🍽️', bg:'#fce4d6', note:4.9, services:[{id:1,nom:'Déjeuner (2 plats)',duree:60,prix:22},{id:2,nom:'Dîner (menu complet)',duree:90,prix:38}] },
+  { id:2, nom:'Studio Élise', categorie:'Coiffeur', ville:'Lyon', adresse:'45 avenue de Saxe, Lyon 6e', description:'Salon de coiffure moderne, spécialiste couleur et balayage.', emoji:'✂️', bg:'#e8f4f8', note:4.8, services:[{id:3,nom:'Coupe femme',duree:60,prix:45},{id:4,nom:'Coupe + couleur',duree:120,prix:95},{id:5,nom:'Coupe homme',duree:30,prix:25}] },
+  { id:3, nom:'Spa Sérénité', categorie:'Spa', ville:'Lyon', adresse:'8 rue Mercière, Lyon 3e', description:'Institut de bien-être, massages, soins du visage, rituel hammam.', emoji:'💆', bg:'#f0f4e8', note:5.0, services:[{id:6,nom:'Massage relaxant',duree:60,prix:65},{id:7,nom:'Soin visage',duree:45,prix:55},{id:8,nom:'Hammam + massage',duree:90,prix:95}] },
+  { id:4, nom:'Nail Art Studio', categorie:'Institut de beauté', ville:'Lyon', adresse:'22 rue Victor Hugo, Lyon 1er', description:'Manucure, nail art, pose de gel et résine par des techniciennes expertes.', emoji:'💅', bg:'#fbeaf5', note:4.7, services:[{id:9,nom:'Manucure simple',duree:45,prix:30},{id:10,nom:'Pose gel',duree:60,prix:45}] },
+  { id:5, nom:'Coach Martin', categorie:'Coach sportif', ville:'Lyon', adresse:'Parc de la Tête d\'Or, Lyon 6e', description:'Coach sportif certifié, suivi personnalisé, perte de poids et remise en forme.', emoji:'🏋️', bg:'#fff3e0', note:4.9, services:[{id:11,nom:'Séance coaching',duree:60,prix:55},{id:12,nom:'Bilan + programme',duree:90,prix:80}] },
+];
+
+// INIT
+async function init() {
+  const { data:{ user } } = await sb.auth.getUser();
+  if(user) await setUser(user);
+
+  sb.auth.onAuthStateChange((event, session) => {
+    if(session?.user) setUser(session.user);
+    else clearUser();
+  });
+
+  buildCats();
+  allPrestas = DEMO_PRESTAS;
+  filteredPrestas = allPrestas;
+  renderPrestas(allPrestas);
+
+  // Charge les vrais prestataires depuis Supabase
+  try {
+    const { data } = await sb.from('prestataires').select('*, services(*)').not('nom', 'is', null);
+    if(data && data.length) {
+      // Map Supabase data to expected format
+      allPrestas = data.map(p => ({
+        id: p.id,
+        supabase_id: p.id,
+        nom: p.nom,
+        categorie: p.categorie || 'Autre',
+        ville: p.ville || '',
+        adresse: p.adresse || '',
+        description: p.description || '',
+        emoji: CAT_ICONS[p.categorie] || '🏪',
+        bg: CAT_BG[p.categorie] || '#f4f0e8',
+        note: p.note || '4.8',
+        services: (p.services || []).filter(s => s.actif !== false)
+      }));
+      renderPrestas(allPrestas);
+    }
+  } catch(e) { console.log('Supabase non dispo, mode démo'); }
+
+  // Lien direct prestataire : ?id=2
+  const params = new URLSearchParams(window.location.search);
+  const idParam = params.get('id');
+  if(idParam) {
+    const presta = allPrestas.find(p => String(p.id) === String(idParam));
+    if(presta) openPresta(presta.id);
+  }
+
+  handleRecovery();
+}
+
+async function setUser(user) {
+  currentUser = user;
+  const name = user.email.split('@')[0];
+  document.getElementById('navUserName').textContent = name;
+  document.getElementById('btnConnexion').style.display = 'none';
+  document.getElementById('btnLogout').style.display = 'inline-flex';
+  document.getElementById('btnMesResas').style.display = 'inline-flex';
+  await loadProfile();
+  document.getElementById('btnProfil').style.display = 'inline-flex';
+}
+
+function clearUser() {
+  currentUser = null;
+  currentProfile = null;
+  document.getElementById('navUserName').textContent = '';
+  document.getElementById('btnConnexion').style.display = 'inline-flex';
+  document.getElementById('btnLogout').style.display = 'none';
+  document.getElementById('btnMesResas').style.display = 'none';
+  document.getElementById('btnProfil').style.display = 'none';
+}
+
+// CATEGORIES
+function buildCats() {
+  document.getElementById('catsRow').innerHTML = CATEGORIES.map(c =>
+    '<span class="cat-pill'+(c===activeCategory?' active':'')+'" onclick="filterCat(\''+c+'\')">'+
+    (CAT_ICONS[c]||'')+(CAT_ICONS[c]?' ':'')+c+'</span>'
+  ).join('');
+}
+
+function filterCat(cat) {
+  activeCategory = cat;
+  buildCats();
+  filterPrestas();
+}
+
+let filteredPrestas = [];
+
+function getFilteredPrestas() { return filteredPrestas.length ? filteredPrestas : allPrestas; }
+
+function filterPrestas() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const ville = document.getElementById('villeFilter').value;
+  let list = allPrestas;
+  if(activeCategory !== 'Tous') list = list.filter(p => p.categorie === activeCategory);
+  if(q) list = list.filter(p => p.nom.toLowerCase().includes(q) || (p.description||'').toLowerCase().includes(q));
+  if(ville) list = list.filter(p => (p.ville||'').includes(ville));
+  filteredPrestas = list;
+  renderPrestas(list);
+}
+
+function renderPrestas(list) {
+  const el = document.getElementById('resultsGrid');
+  if(!list.length) {
+    el.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">🔍</div><p>Aucun prestataire trouvé</p></div>';
+    return;
+  }
+  el.innerHTML = list.map((p, idx) => '<div class="presta-card" onclick="openPrestaIdx('+idx+')">' +
+    (p.photo_url
+      ? '<div class="presta-thumb" style="padding:0"><img src="'+p.photo_url+'" alt="'+(p.nom||'Prestataire')+'" style="width:100%;height:100%;object-fit:cover;border-radius:0"></div>'
+      : '<div class="presta-thumb" style="background:'+(p.bg||'#f4f0e8')+'">'+(p.emoji||'🏪')+'</div>'
+    ) +
+    '<div class="presta-body">' +
+      '<div class="presta-cat">'+(p.categorie||'')+'</div>' +
+      '<div class="presta-name">'+p.nom+'</div>' +
+      '<div class="presta-loc">📍 '+(p.ville||'')+'</div>' +
+      '<div class="presta-footer">' +
+        '<span class="presta-dispo">Disponible</span>' +
+        '<span class="presta-rating">⭐ '+(p.note||'4.8')+'</span>' +
+      '</div>' +
+    '</div></div>'
+  ).join('');
+}
+
+// PROFIL PRESTATAIRE
+function openPrestaIdx(idx) {
+  // Uses filtered list index for reliable UUID lookup
+  const filtered = getFilteredPrestas();
+  selectedPresta = filtered[idx] || allPrestas[idx];
+  if(!selectedPresta) return;
+  openPrestaData(selectedPresta);
+}
+
+function openPresta(id) {
+  selectedPresta = allPrestas.find(p => p.id === id || String(p.id) === String(id));
+  if(!selectedPresta) return;
+  openPrestaData(selectedPresta);
+}
+
+function openPrestaData(presta) {
+  selectedPresta = presta;
+  selectedService = null; selectedDate = null; selectedSlot = null;
+
+  document.getElementById('profilHeader').innerHTML =
+    '<div class="profil-avatar" style="background:'+(selectedPresta.bg||'#f4f0e8')+'">'+(selectedPresta.emoji||'🏪')+'</div>' +
+    '<div>' +
+      '<div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--gris);margin-bottom:0.3rem">'+(selectedPresta.categorie||'')+'</div>' +
+      '<div class="profil-name">'+selectedPresta.nom+'</div>' +
+      '<div class="profil-meta">📍 '+(selectedPresta.adresse||selectedPresta.ville||'')+'  ⭐ '+(selectedPresta.note||'4.8')+'</div>' +
+      '<div class="profil-desc">'+(selectedPresta.description||'')+'</div>' +
+    '</div>';
+
+  const services = selectedPresta.services || [];
+  document.getElementById('servicesList').innerHTML = services.length ?
+    services.map(s => '<div class="service-item" id="srv-'+s.id+'" onclick="selectService('+JSON.stringify(s).replace(/"/g,'&quot;')+')">' +
+      '<div><div class="service-item-name">'+s.nom+'</div><div class="service-item-meta">'+s.duree+' min</div></div>' +
+      '<div class="service-item-price">'+s.prix+'€</div>' +
+    '</div>').join('') :
+    '<div class="empty-state"><p>Aucun service disponible</p></div>';
+
+  calMonth = new Date();
+  renderClientCal();
+  showView('profil');
+}
+
+
+
+function selectService(s) {
+  selectedService = s;
+  document.querySelectorAll('.service-item').forEach(el => el.classList.remove('selected'));
+  document.getElementById('srv-'+s.id)?.classList.add('selected');
+  updateSummary();
+}
+
+// CALENDRIER CLIENT
+function renderClientCal() {
+  const y = calMonth.getFullYear(), m = calMonth.getMonth();
+  const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+  document.getElementById('calMonthLabel').textContent = months[m]+' '+y;
+
+  const first = new Date(y,m,1).getDay();
+  const offset = first===0?6:first-1;
+  const days = new Date(y,m+1,0).getDate();
+  const today = new Date(); today.setHours(0,0,0,0);
+  const dayLabels = ['L','M','M','J','V','S','D'];
+
+  let html = dayLabels.map(d=>'<div class="cal-day-label">'+d+'</div>').join('');
+  for(let i=0;i<offset;i++) html+='<div class="cal-day other"></div>';
+  for(let d=1;d<=days;d++) {
+    const date = new Date(y,m,d);
+    const dateStr = y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    const isPast = date < today;
+    const isToday = date.getTime()===today.getTime();
+    const isSel = dateStr === selectedDate;
+    const cls = [isPast?'disabled':'',isToday?'today':'',isSel?'selected':''].filter(Boolean).join(' ');
+    html += '<div class="cal-day '+cls+'"'+(isPast?'':' onclick="selectDate(\''+dateStr+'\')"')+'>'+d+'</div>';
+  }
+  document.getElementById('clientCal').innerHTML = html;
+}
+
+function changeCalMonth(dir) {
+  calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth()+dir, 1);
+  renderClientCal();
+}
+
+function selectDate(dateStr) {
+  selectedDate = dateStr;
+  selectedSlot = null;
+  renderClientCal();
+  renderClientSlots(dateStr);
+  updateSummary();
+}
+
+function renderClientSlots(dateStr) {
+  // Generate slots 9h-19h with lunch break 12h-14h
+  const dur = selectedService ? selectedService.duree : 60;
+  const slots = [];
+  let cur = 9*60;
+  const end = 19*60;
+  while(cur+dur<=end) {
+    if(cur>=12*60 && cur<14*60) { cur+=dur; continue; }
+    if(cur<12*60 && cur+dur>12*60) { cur=14*60; continue; }
+    const h = String(Math.floor(cur/60)).padStart(2,'0');
+    const mn = String(cur%60).padStart(2,'0');
+    slots.push(h+':'+mn);
+    cur+=dur;
+  }
+
+  const d = new Date(dateStr+'T12:00:00');
+  document.getElementById('slotsTitle').textContent = d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('slotsSection').style.display = 'block';
+  document.getElementById('clientSlots').innerHTML = slots.map(s =>
+    '<div class="slot'+(s===selectedSlot?' selected':'')+'" onclick="selectSlot(\''+s+'\')">'+s+'</div>'
+  ).join('');
+}
+
+function selectSlot(slot) {
+  selectedSlot = slot;
+  document.querySelectorAll('.slot').forEach(el => el.classList.remove('selected'));
+  event.target.classList.add('selected');
+  updateSummary();
+}
+
+function updateSummary() {
+  const el = document.getElementById('bookingSummary');
+  if(selectedService && selectedDate && selectedSlot) {
+    const d = new Date(selectedDate+'T12:00:00');
+    document.getElementById('sumService').textContent = selectedService.nom;
+    document.getElementById('sumDate').textContent = d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+    document.getElementById('sumHeure').textContent = selectedSlot;
+    document.getElementById('sumPrix').textContent = selectedService.prix+'€';
+    el.style.display = 'block';
+  } else {
+    el.style.display = 'none';
+  }
+}
+
+function goToForm() {
+  if(!selectedService || !selectedDate || !selectedSlot) { showToast('Choisissez un service, une date et un créneau','error'); return; }
+  if(!ensurePhoneVerified()) return;
+  const d = new Date(selectedDate+'T12:00:00');
+  const dateLabel = d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('formRecap').innerHTML =
+    '<div class="recap-row"><span>Prestataire</span><span>'+selectedPresta.nom+'</span></div>' +
+    '<div class="recap-row"><span>Service</span><span>'+selectedService.nom+'</span></div>' +
+    '<div class="recap-row"><span>Date</span><span>'+dateLabel+'</span></div>' +
+    '<div class="recap-row"><span>Heure</span><span>'+selectedSlot+'</span></div>' +
+    '<div class="recap-row"><span>Durée</span><span>'+selectedService.duree+' min</span></div>' +
+    '<div class="recap-row"><span>Prix indicatif</span><span>'+selectedService.prix+'€</span></div>';
+
+  if(currentUser) {
+    document.getElementById('clientEmail').value = currentUser.email;
+  }
+  showView('formulaire');
+}
+
+// CONFIRMATION
+async function confirmerReservation() {
+  if(!ensurePhoneVerified()) return;
+  const prenom = document.getElementById('clientPrenom').value.trim();
+  const nom = document.getElementById('clientNom').value.trim();
+  const email = document.getElementById('clientEmail').value.trim();
+  const tel = document.getElementById('clientTel').value.trim();
+  const notes = document.getElementById('clientNotes').value.trim();
+
+  if(!prenom || !nom || !email) { showToast('Remplis les champs obligatoires','error'); return; }
+
+  const resa = {
+    prestataire_id: selectedPresta.supabase_id || null,
+    client_user_id: currentUser?.id || null,
+    client_prenom: prenom, client_nom: nom, client_email: email,
+    client_tel: tel, notes,
+    service_nom: selectedService.nom,
+    service_duree: selectedService.duree,
+    date: selectedDate, heure: selectedSlot,
+    status: 'confirmed'
+  };
+
+  try {
+    const { error } = await sb.from('reservations').insert([resa]);
+    if(error) { showToast('Erreur: ' + error.message, 'error'); return; }
+  } catch(e) { showToast('Erreur de connexion', 'error'); return; }
+
+  // Confirmation screen
+  const d = new Date(selectedDate+'T12:00:00');
+  const dateLabel = d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('confirmCard').innerHTML =
+    '<div class="recap-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;font-size:0.875rem"><span style="color:var(--gris)">Chez</span><span style="font-weight:500">'+selectedPresta.nom+'</span></div>' +
+    '<div class="recap-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;font-size:0.875rem"><span style="color:var(--gris)">Service</span><span style="font-weight:500">'+selectedService.nom+'</span></div>' +
+    '<div class="recap-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;font-size:0.875rem"><span style="color:var(--gris)">Date</span><span style="font-weight:500">'+dateLabel+' à '+selectedSlot+'</span></div>' +
+    '<div class="recap-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;font-size:0.875rem"><span style="color:var(--gris)">Confirmation</span><span style="font-weight:500">'+email+'</span></div>';
+
+  showView('confirmation');
+  showToast('Réservation confirmée !','success');
+}
+
+// MES RESERVATIONS
+async function loadMesResas() {
+  if(!currentUser) { showToast('Connectez-vous pour voir vos réservations','error'); return; }
+  try {
+    const [{ data: resaData }, { data: reviewData }] = await Promise.all([
+      sb.from('reservations').select('*').eq('client_user_id', currentUser.id).order('date'),
+      sb.from('reviews').select('reservation_id, rating').eq('user_id', currentUser.id)
+    ]);
+    const reviewsByResa = {};
+    (reviewData || []).forEach(r => { reviewsByResa[r.reservation_id] = r; });
+    renderMesResas(resaData || [], reviewsByResa);
+  } catch(e) { renderMesResas([]); }
+}
+
+function renderMesResas(list, reviewsByResa = {}) {
+  const el = document.getElementById('mesResasList');
+  if(!list.length) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-icon">📅</div><p>Aucune réservation pour l\'instant</p></div>';
+    return;
+  }
+  el.innerHTML = list.map(r => {
+    const d = new Date(r.date+'T12:00:00');
+    const day = d.getDate();
+    const month = d.toLocaleDateString('fr-FR',{month:'short'});
+    const statusClass = r.status==='confirmed'?'status-confirmed':'status-cancelled';
+    const statusLabel = r.status==='confirmed'?'Confirmée':'Annulée';
+    const hasReview = !!reviewsByResa[r.id];
+    const reviewLabel = hasReview ? `Note : ${reviewsByResa[r.id].rating}★` : '';
+    return '<div class="resa-card">' +
+      '<div class="resa-card-date"><div class="resa-card-day">'+day+'</div><div class="resa-card-month">'+month+'</div></div>' +
+      '<div class="resa-card-info">' +
+        '<div class="resa-card-name">'+r.prestataire_nom+'</div>' +
+        '<div class="resa-card-meta">'+( r.service_nom || r.service || '' )+' · '+r.heure+'</div>' +
+      '</div>' +
+      '<div class="resa-card-actions">' +
+        '<span class="status-pill '+statusClass+'">'+statusLabel+'</span>' +
+        (r.status==='confirmed'
+          ? (hasReview
+              ? '<span style="color:var(--gris)">'+reviewLabel+'</span>'
+              : '<button class="btn btn-outline" style="font-size:0.8rem;padding:0.25rem 0.7rem" onclick=\'openReviewModal('+JSON.stringify({ id:r.id, prestataire_nom:r.prestataire_nom, service:r.service, date:r.date, heure:r.heure }).replace(/"/g,"&quot;")+')\'>Laisser un avis</button>'
+            )
+          : ''
+        ) +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+// AUTH
+function showAuthModal() { document.getElementById('authModal').classList.add('open'); }
+function closeModal() { document.getElementById('authModal').classList.remove('open'); }
+document.getElementById('authModal').addEventListener('click', e => { if(e.target===document.getElementById('authModal')) closeModal(); });
+
+function switchAuthTab(mode) {
+  authMode = mode;
+  document.querySelectorAll('.modal-tab').forEach((t,i) => t.classList.toggle('active', (i===0&&mode==='login')||(i===1&&mode==='register')));
+  document.getElementById('authSubmitBtn').textContent = mode==='login' ? 'Se connecter' : 'S\'inscrire';
+  document.getElementById('authPhoneGroup').style.display = mode==='register' ? 'block' : 'none';
+  document.getElementById('otpSection').style.display = 'none';
+}
+
+async function submitAuth() {
+  const email = document.getElementById('authEmail').value.trim();
+  const password = document.getElementById('authPassword').value;
+  const phoneRaw = document.getElementById('authPhone').value.trim();
+  if(!email || !password) { showToast('Remplis email et mot de passe','error'); return; }
+
+  try {
+    let result;
+    if(authMode==='login') {
+      result = await sb.auth.signInWithPassword({ email, password });
+    } else {
+      const phone = normalizePhoneInput(phoneRaw);
+      if(!phone || !phone.startsWith('+')) { showToast('Téléphone invalide (format +33...)','error'); return; }
+      result = await sb.auth.signUp({
+        email,
+        password,
+        options: { data: { role:'client', phone_e164: phone } }
+      });
+    }
+    if(result.error) { showToast(result.error.message,'error'); return; }
+    closeModal();
+    showToast(authMode==='login'?'Connecté !':'Compte créé !','success');
+    if(authMode==='register') {
+      await sendPhoneOtp();
+      showAuthModal();
+      document.getElementById('otpSection').style.display = 'block';
+    }
+  } catch(e) { showToast('Erreur de connexion','error'); }
+}
+
+function openChangePassword() {
+  if (!currentUser) { showAuthModal(); return; }
+  showAuthModal();
+  document.getElementById('otpSection').style.display = 'none';
+  document.getElementById('resetSection').style.display = 'block';
+}
+
+async function logout() {
+  await sb.auth.signOut();
+  showToast('Déconnecté');
+  showView('recherche');
+}
+
+async function loadProfile() {
+  if(!currentUser) return;
+  const { data } = await sb.from('profiles').select('role, phone_e164, phone_verified').eq('id', currentUser.id).single();
+  currentProfile = data || null;
+  if(currentProfile?.role === 'presta') {
+    showToast('Compte prestataire détecté', 'error');
+    setTimeout(() => window.location.href = 'dashboard.html', 1200);
+  }
+}
+
+async function saveClientProfil() {
+  if (!currentUser) { showAuthModal(); return; }
+  const telRaw = document.getElementById('profilClientTel').value.trim();
+  const phone = telRaw ? normalizePhoneInput(telRaw) : null;
+  try {
+    await sb.from('profiles').update({ phone_e164: phone }).eq('id', currentUser.id);
+    showToast('Profil mis à jour','success');
+  } catch(e) {
+    showToast('Erreur lors de la mise à jour','error');
+  }
+}
+
+async function changeClientPassword() {
+  if (!currentUser) { showAuthModal(); return; }
+  const p1 = document.getElementById('profilNewPassword').value.trim();
+  const p2 = document.getElementById('profilNewPasswordConfirm').value.trim();
+  if (!p1 || !p2) { showToast('Remplis les deux champs mot de passe','error'); return; }
+  if (p1 !== p2) { showToast('Les mots de passe ne correspondent pas','error'); return; }
+  try {
+    await sb.auth.updateUser({ password: p1 });
+    showToast('Mot de passe mis à jour','success');
+    document.getElementById('profilNewPassword').value = '';
+    document.getElementById('profilNewPasswordConfirm').value = '';
+  } catch(e) {
+    showToast('Erreur reset','error');
+  }
+}
+
+function ensurePhoneVerified() {
+  // Version simplifiée sans blocage SMS :
+  // on demande juste à l'utilisateur d'être connecté.
+  if(!currentUser) {
+    showAuthModal();
+    return false;
+  }
+  return true;
+}
+
+async function sendPhoneOtp() {
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    const token = session?.access_token;
+    if(!token) { showToast('Connecte-toi d\'abord', 'error'); return; }
+    const res = await fetch(`${SUPABASE_URL}/functions/v1/verify-phone`, {
+      method:'POST',
+      headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`,
+        'apikey': SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify({ action:'start' })
+    });
+    const json = await res.json();
+    if(!res.ok) throw new Error(json.error || 'Erreur');
+    showToast('Code SMS envoyé', 'success');
+  } catch(e) {
+    showToast('Erreur SMS: '+e.message, 'error');
+  }
+}
+
+async function verifyPhoneCode() {
+  const code = document.getElementById('otpCode').value.trim();
+  if(!code) { showToast('Entre le code SMS', 'error'); return; }
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    const token = session?.access_token;
+    if(!token) { showToast('Connecte-toi d\'abord', 'error'); return; }
+    const res = await fetch(`${SUPABASE_URL}/functions/v1/verify-phone`, {
+      method:'POST',
+      headers: {
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${token}`,
+        'apikey': SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify({ action:'check', code })
+    });
+    const json = await res.json();
+    if(!res.ok) throw new Error(json.error || 'Erreur');
+    await loadProfile();
+    showToast('Téléphone vérifié', 'success');
+    document.getElementById('otpSection').style.display = 'none';
+    closeModal();
+  } catch(e) {
+    showToast('Code invalide', 'error');
+  }
+}
+
+async function forgotPassword() {
+  const email = document.getElementById('authEmail').value.trim();
+  if(!email) { showToast('Entre ton email', 'error'); return; }
+  try {
+    await sb.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + window.location.pathname
+    });
+    showToast('Email de réinitialisation envoyé', 'success');
+  } catch(e) {
+    showToast('Erreur reset', 'error');
+  }
+}
+
+function handleRecovery() {
+  const hash = new URLSearchParams(window.location.hash.replace('#',''));
+  if(hash.get('type') === 'recovery') {
+    showAuthModal();
+    document.getElementById('resetSection').style.display = 'block';
+  }
+}
+
+async function updatePassword() {
+  const newPass = document.getElementById('resetPassword').value.trim();
+  if(!newPass) { showToast('Entre un nouveau mot de passe', 'error'); return; }
+  try {
+    await sb.auth.updateUser({ password: newPass });
+    showToast('Mot de passe mis à jour', 'success');
+    document.getElementById('resetSection').style.display = 'none';
+    window.location.hash = '';
+    closeModal();
+  } catch(e) {
+    showToast('Erreur reset', 'error');
+  }
+}
+
+function openReviewModal(resa) {
+  if (!currentUser) { showAuthModal(); return; }
+  currentReviewReservation = resa;
+  currentRating = 0;
+  document.getElementById('reviewComment').value = '';
+  const d = new Date(resa.date+'T12:00:00');
+  const dateLabel = d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('reviewRecap').innerHTML =
+    '<div class="recap-row"><span>Prestataire</span><span>'+resa.prestataire_nom+'</span></div>' +
+    '<div class="recap-row"><span>Service</span><span>'+resa.service+'</span></div>' +
+    '<div class="recap-row"><span>Date</span><span>'+dateLabel+' à '+resa.heure+'</span></div>';
+  document.getElementById('reviewModal').classList.add('open');
+}
+
+function closeReviewModal() {
+  document.getElementById('reviewModal').classList.remove('open');
+}
+
+function selectRating(value) {
+  currentRating = value;
+}
+
+async function submitReview() {
+  if (!currentUser || !currentReviewReservation) { showToast('Erreur, veuillez réessayer','error'); return; }
+  if (!currentRating) { showToast('Sélectionne une note','error'); return; }
+  const comment = document.getElementById('reviewComment').value.trim();
+  try {
+    await sb.from('reviews').insert([{
+      reservation_id: currentReviewReservation.id,
+      user_id: currentUser.id,
+      prestataire_nom: currentReviewReservation.prestataire_nom,
+      rating: currentRating,
+      comment
+    }]);
+    showToast('Merci pour votre avis !','success');
+    closeReviewModal();
+    loadMesResas();
+  } catch(e) {
+    showToast('Impossible d\'enregistrer l\'avis (déjà laissé ou erreur serveur)','error');
+  }
+}
+// NAVIGATION
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  if(name==='mes-reservations') loadMesResas();
+   if(name==='profil-client') {
+    const statutEl = document.getElementById('profilClientStatut');
+    const emailEl = document.getElementById('profilClientEmail');
+    const telEl = document.getElementById('profilClientTel');
+    if (currentUser) {
+      statutEl.textContent = 'Connecté';
+      emailEl.value = currentUser.email || '';
+      telEl.value = currentProfile?.phone_e164 || '';
+    } else {
+      statutEl.textContent = 'Non connecté';
+      emailEl.value = '';
+      telEl.value = '';
+      showAuthModal();
+    }
+  }
+  window.scrollTo(0,0);
+}
+
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast '+type+' show';
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Mobile nav toggle
+const navToggle = document.getElementById('navToggle');
+const navRight = document.getElementById('navRight');
+if (navToggle && navRight) {
+  navToggle.addEventListener('click', () => {
+    const isOpen = navRight.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  navRight.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('click', () => {
+      navRight.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
+init();
+</script>
+</body>
+</html>
