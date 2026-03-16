@@ -586,13 +586,12 @@ function normalizePhoneInput(phone) {
 
 // DEMO DATA (avant Supabase)
 const DEMO_PRESTAS = [
-  { id:1, nom:'Le Petit Bistrot', categorie:'Restaurant', ville:'Lyon', adresse:'12 rue de la République, Lyon 2e', description:'Restaurant traditionnel lyonnais, cuisine du marché, vins naturels.', emoji:'', bg:'#fce4d6', note:4.9, services:[{id:1,nom:'Déjeuner (2 plats)',duree:60,prix:22},{id:2,nom:'Dîner (menu complet)',duree:90,prix:38}] },
-  { id:2, nom:'Studio Elise', categorie:'Coiffeur', ville:'Lyon', adresse:'45 avenue de Saxe, Lyon 6e', description:'Salon de coiffure moderne, spécialiste couleur et balayage.', emoji:'', bg:'#e8f4f8', note:4.8, services:[{id:3,nom:'Coupe femme',duree:60,prix:45},{id:4,nom:'Coupe + couleur',duree:120,prix:95},{id:5,nom:'Coupe homme',duree:30,prix:25}] },
-  { id:3, nom:'Spa Sérénité', categorie:'Spa', ville:'Lyon', adresse:'8 rue Mercière, Lyon 3e', description:'Institut de bien-être, massages, soins du visage, rituel hammam.', emoji:''?', bg:'#f0f4e8', note:5.0, services:[{id:6,nom:'Massage relaxant',duree:60,prix:65},{id:7,nom:'Soin visage',duree:45,prix:55},{id:8,nom:'Hammam + massage',duree:90,prix:95}] },
-  { id:4, nom:'Nail Art Studio', categorie:'Institut de beauté', ville:'Lyon', adresse:'22 rue Victor Hugo, Lyon 1er', description:'Manucure, nail art, pose de gel et résine par des techniciennes expertes.', emoji:''.', bg:'#fbeaf5', note:4.7, services:[{id:9,nom:'Manucure simple',duree:45,prix:30},{id:10,nom:'Pose gel',duree:60,prix:45}] },
-  { id:5, nom:'Coach Martin', categorie:'Coach sportif', ville:'Lyon', adresse:'Parc de la Tête d\'Or, Lyon 6e', description:'Coach sportif certifié, suivi personnalisé, perte de poids et remise en forme.', emoji:'', bg:'#fff3e0', note:4.9, services:[{id:11,nom:'Séance coaching',duree:60,prix:55},{id:12,nom:'Bilan + programme',duree:90,prix:80}] },
+  { id:1, nom:'Le Petit Bistrot', categorie:'Restaurant', ville:'Lyon', adresse:'12 rue de la Republique, Lyon 2e', description:'Restaurant traditionnel lyonnais, cuisine du marche, vins naturels.', emoji:'', bg:'#fce4d6', note:4.9, services:[{id:1,nom:'Dejeuner (2 plats)',duree:60,prix:22},{id:2,nom:'Diner (menu complet)',duree:90,prix:38}] },
+  { id:2, nom:'Studio Elise', categorie:'Coiffeur', ville:'Lyon', adresse:'45 avenue de Saxe, Lyon 6e', description:'Salon de coiffure moderne, specialiste couleur et balayage.', emoji:'', bg:'#e8f4f8', note:4.8, services:[{id:3,nom:'Coupe femme',duree:60,prix:45},{id:4,nom:'Coupe + couleur',duree:120,prix:95},{id:5,nom:'Coupe homme',duree:30,prix:25}] },
+  { id:3, nom:'Spa Serenite', categorie:'Spa', ville:'Lyon', adresse:'8 rue Merciere, Lyon 3e', description:'Institut de bien-etre, massages, soins du visage, rituel hammam.', emoji:'', bg:'#f0f4e8', note:5.0, services:[{id:6,nom:'Massage relaxant',duree:60,prix:65},{id:7,nom:'Soin visage',duree:45,prix:55},{id:8,nom:'Hammam + massage',duree:90,prix:95}] },
+  { id:4, nom:'Nail Art Studio', categorie:'Institut de beaute', ville:'Lyon', adresse:'22 rue Victor Hugo, Lyon 1er', description:'Manucure, nail art, pose de gel et resine par des techniciennes expertes.', emoji:'', bg:'#fbeaf5', note:4.7, services:[{id:9,nom:'Manucure simple',duree:45,prix:30},{id:10,nom:'Pose gel',duree:60,prix:45}] },
+  { id:5, nom:'Coach Martin', categorie:'Coach sportif', ville:'Lyon', adresse:'Parc de la Tete d\'Or, Lyon 6e', description:'Coach sportif certifie, suivi personnalise, perte de poids et remise en forme.', emoji:'', bg:'#fff3e0', note:4.9, services:[{id:11,nom:'Seance coaching',duree:60,prix:55},{id:12,nom:'Bilan + programme',duree:90,prix:80}] },
 ];
-
 // INIT
 async function init() {
   const { data:{ user } } = await sb.auth.getUser();
@@ -1245,6 +1244,7 @@ init();
 </script>
 </body>
 </html>
+
 
 
 
