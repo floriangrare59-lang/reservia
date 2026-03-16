@@ -1121,11 +1121,19 @@ async function logout() {
 
 async function loadProfile() {
   if(!currentUser) return;
-  const { data } = await sb.from('profiles').select('role, phone_e164, phone_verified').eq('id', currentUser.id).single();
-  currentProfile = data || null;
-  if(currentProfile.role === 'presta') {
-    showToast('Compte prestataire détecté', 'error');
-    setTimeout(() => window.location.href = 'dashboard.html', 1200);
+  try {
+    const { data, error } = await sb.from('profiles')
+      .select('role, phone_e164, phone_verified')
+      .eq('id', currentUser.id)
+      .single();
+    if(error) { currentProfile = null; return; }
+    currentProfile = data || null;
+    if(currentProfile?.role === 'presta') {
+      showToast('Compte prestataire détecté', 'error');
+      setTimeout(() => window.location.href = 'dashboard.html', 1200);
+    }
+  } catch(e) {
+    currentProfile = null;
   }
 }
 
