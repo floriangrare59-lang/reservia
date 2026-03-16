@@ -789,7 +789,7 @@
         <input type="number" class="form-input" id="serviceDuree" placeholder="60" min="15" step="15">
       </div>
       <div class="form-group">
-        <label class="form-label">Prix indicatif (e,e)</label>
+        <label class="form-label">Prix indicatif (&euro;)</label>
         <input type="number" class="form-input" id="servicePrix" placeholder="45" min="0">
       </div>
     </div>
@@ -1375,7 +1375,7 @@ function renderServices() {
 
 function updateServiceSelect() {
   const sel = document.getElementById('resaService');
-  sel.innerHTML = allServices.map(s => `<option value="${s.nom}">${s.nom} (${s.duree}min · ${s.prix}e,e)</option>`).join('');
+  sel.innerHTML = allServices.map(s => `<option value="${s.nom}">${s.nom} (${s.duree}min · ${s.prix}&euro;)</option>`).join('');
 }
 
 function exportReservationsCSV() {

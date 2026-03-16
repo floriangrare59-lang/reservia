@@ -574,7 +574,7 @@ let currentReviewReservation = null;
 let currentRating = 0;
 
 const CATEGORIES = ['Tous','Restaurant','Coiffeur','Institut de beauté','Spa','Coach sportif'];
-const CAT_ICONS = { 'Restaurant':'R','Coiffeur':'C','Institut de beauté':'B','Spa':'S','Coach sportif':'C' };
+const CAT_ICONS = {};
 const CAT_BG = { 'Restaurant':'#fce4d6','Coiffeur':'#e8f4f8','Institut de beauté':'#fbeaf5','Spa':'#f0f4e8','Coach sportif':'#fff3e0' };
 
 function normalizePhoneInput(phone) {
@@ -621,7 +621,7 @@ async function init() {
         adresse: p.adresse || '',
         description: p.description || '',
         photo_url: p.photo_url || null,
-        emoji: CAT_ICONS[p.categorie] || 'P',
+        emoji: '',
         bg: CAT_BG[p.categorie] || '#f4f0e8',
         note: p.note || '4.8',
         services: (p.services || []).filter(s => s.actif !== false)
@@ -671,7 +671,7 @@ function clearUser() {
 function buildCats() {
   document.getElementById('catsRow').innerHTML = CATEGORIES.map(c =>
     '<span class="cat-pill'+(c===activeCategory?' active':'')+'" onclick="filterCat(\''+c+'\')">'+
-    (CAT_ICONS[c]||'')+(CAT_ICONS[c]?' ':'')+c+'</span>'
+    c+'</span>'
   ).join('');
 }
 
@@ -705,15 +705,15 @@ function renderPrestas(list) {
   el.innerHTML = list.map((p, idx) => '<div class="presta-card" onclick="openPrestaIdx('+idx+')">' +
     (p.photo_url
       ? '<div class="presta-thumb" style="padding:0"><img src="'+p.photo_url+'" alt="'+(p.nom||'Prestataire')+'" style="width:100%;height:100%;object-fit:cover;border-radius:0"></div>'
-      : '<div class="presta-thumb" style="background:'+(p.bg||'#f4f0e8')+'">'+(p.emoji||'eYee')+'</div>'
+      : '<div class="presta-thumb" style="background:'+(p.bg||'#f4f0e8')+'">'+(p.nom ? p.nom.charAt(0).toUpperCase() : '')+'</div>'
     ) +
     '<div class="presta-body">' +
       '<div class="presta-cat">'+(p.categorie||'')+'</div>' +
       '<div class="presta-name">'+p.nom+'</div>' +
-      '<div class="presta-loc">eY"e '+(p.ville||'')+'</div>' +
+      '<div class="presta-loc">Lieu: '+(p.ville||'')+'</div>' +
       '<div class="presta-footer">' +
         '<span class="presta-dispo">Disponible</span>' +
-        '<span class="presta-rating">⭐ '+(p.note||'4.8')+'</span>' +
+        '<span class="presta-rating">&#9733; '+(p.note||'4.8')+'</span>' +
       '</div>' +
     '</div></div>'
   ).join('');
@@ -740,14 +740,14 @@ function openPrestaData(presta) {
 
   const avatarHtml = selectedPresta.photo_url
     ? '<div class="profil-avatar" style="padding:0"><img src="'+selectedPresta.photo_url+'" alt="'+(selectedPresta.nom||'Prestataire')+'" style="width:100%;height:100%;object-fit:cover;border-radius:16px"></div>'
-    : '<div class="profil-avatar" style="background:'+(selectedPresta.bg||'#f4f0e8')+'">'+(selectedPresta.emoji||'eYee')+'</div>';
+    : '<div class="profil-avatar" style="background:'+(selectedPresta.bg||'#f4f0e8')+'">'+(selectedPresta.nom ? selectedPresta.nom.charAt(0).toUpperCase() : '')+'</div>';
 
   document.getElementById('profilHeader').innerHTML =
     avatarHtml +
     '<div>' +
       '<div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--gris);margin-bottom:0.3rem">'+(selectedPresta.categorie||'')+'</div>' +
       '<div class="profil-name">'+selectedPresta.nom+'</div>' +
-      '<div class="profil-meta">eY"e '+(selectedPresta.adresse||selectedPresta.ville||'')+'  ⭐ '+(selectedPresta.note||'4.8')+'</div>' +
+      '<div class="profil-meta">Lieu: '+(selectedPresta.adresse||selectedPresta.ville||'')+'  &#9733; '+(selectedPresta.note||'4.8')+'</div>' +
       '<div class="profil-desc">'+(selectedPresta.description||'')+'</div>' +
     '</div>';
 
@@ -756,10 +756,10 @@ function openPrestaData(presta) {
     services.map(s => '<div class="service-item" id="srv-'+s.id+'" onclick="selectService('+JSON.stringify(s).replace(/"/g,'&quot;')+')">' +
       (s.photo_url
         ? '<div class="service-item-photo"><img src="'+s.photo_url+'" alt="'+s.nom+'"></div>'
-        : '<div class="service-item-photo">eY"e</div>'
+        : '<div class="service-item-photo">Photo</div>'
       ) +
       '<div><div class="service-item-name">'+s.nom+'</div><div class="service-item-meta">'+s.duree+' min</div></div>' +
-      '<div class="service-item-price">'+s.prix+'e,e</div>' +
+      '<div class="service-item-price">'+s.prix+'&euro;</div>' +
     '</div>').join('') :
     '<div class="empty-state"><p>Aucun service disponible</p></div>';
 
@@ -789,10 +789,10 @@ async function renderPrestaReviews(presta) {
       return;
     }
     const avg = (reviews.reduce((s,r)=>s+(r.rating||0),0)/reviews.length).toFixed(1);
-    summaryEl.textContent = `${avg} e~. · ${reviews.length} avis`;
+    summaryEl.innerHTML = `${avg} &#9733; · ${reviews.length} avis`;
     listEl.innerHTML = reviews.map(r => {
       const date = r.created_at ? new Date(r.created_at).toLocaleDateString('fr-FR') : '';
-      const stars = 'e~.'.repeat(r.rating||0) + 'e~?'.repeat(5-(r.rating||0));
+      const stars = '&#9733;'.repeat(r.rating||0) + '&#9734;'.repeat(5-(r.rating||0));
       return `<div class="review-item">
         <div class="review-head"><span>${date}</span><span class="review-stars">${stars}</span></div>
         <div class="review-comment">${r.comment || 'Avis sans commentaire'}</div>
@@ -895,7 +895,7 @@ function updateSummary() {
     document.getElementById('sumService').textContent = selectedService.nom;
     document.getElementById('sumDate').textContent = d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
     document.getElementById('sumHeure').textContent = selectedSlot;
-    document.getElementById('sumPrix').textContent = selectedService.prix+'e,e';
+    document.getElementById('sumPrix').innerHTML = selectedService.prix+'&euro;';
     el.style.display = 'block';
   } else {
     el.style.display = 'none';
@@ -913,7 +913,7 @@ function goToForm() {
     '<div class="recap-row"><span>Date</span><span>'+dateLabel+'</span></div>' +
     '<div class="recap-row"><span>Heure</span><span>'+selectedSlot+'</span></div>' +
     '<div class="recap-row"><span>Durée</span><span>'+selectedService.duree+' min</span></div>' +
-    '<div class="recap-row"><span>Prix indicatif</span><span>'+selectedService.prix+'e,e</span></div>';
+    '<div class="recap-row"><span>Prix indicatif</span><span>'+selectedService.prix+'&euro;</span></div>';
 
   if(currentUser) {
     document.getElementById('clientEmail').value = currentUser.email;
@@ -997,7 +997,7 @@ function renderMesResas(list, reviewsByResa = {}) {
     const statusClass = r.status==='confirmed'?'status-confirmed':'status-cancelled';
     const statusLabel = r.status==='confirmed'?'Confirmée':'Annulée';
     const hasReview = !!reviewsByResa[r.id];
-    const reviewLabel = hasReview ? `Note : ${reviewsByResa[r.id].rating}e~.` : '';
+    const reviewLabel = hasReview ? `Note : ${reviewsByResa[r.id].rating}&#9733;` : '';
     const cancellable = r.status==='confirmed' && canCancelReservation(r);
     const prestaName = r.prestataire_nom || getPrestaNameById(r.prestataire_id) || 'Prestataire';
     return '<div class="resa-card">' +
