@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reservia �?" Espace Prestataire</title>
+<title>Reservia - Espace Prestataire</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -345,7 +345,7 @@
 
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
-  <div class="sidebar-logo"><a href="index.html">Reservia<span>.</span></a></div>
+  <div class="sidebar-logo"><a href="index.html">Reservia<span>•</span></a></div>
   <div class="sidebar-user">
     <div class="user-avatar" id="userInitials">?</div>
     <div>
@@ -356,31 +356,31 @@
   <nav class="sidebar-nav">
     <div class="nav-section-label">Principal</div>
     <div class="nav-item active" onclick="showView('dashboard')">
-      <span class="nav-icon">�-�</span> Tableau de bord
+      <span class="nav-icon">•</span> Tableau de bord
     </div>
     <div class="nav-item" onclick="showView('calendar')">
-      <span class="nav-icon">�-�</span> Calendrier
+      <span class="nav-icon">•</span> Calendrier
     </div>
     <div class="nav-item" onclick="showView('reservations')">
-      <span class="nav-icon">�-^</span> Réservations
+      <span class="nav-icon">•</span> Réservations
     </div>
     <div class="nav-section-label">Gestion</div>
     <div class="nav-item" onclick="showView('services')">
-      <span class="nav-icon">�-?</span> Mes services
+      <span class="nav-icon">•</span> Mes services
     </div>
     <div class="nav-item" onclick="showView('disponibilites')">
-      <span class="nav-icon">�-�</span> Disponibilités
+      <span class="nav-icon">•</span> Disponibilités
     </div>
     <div class="nav-item" onclick="showView('profil')">
-      <span class="nav-icon">�-�</span> Mon profil
+      <span class="nav-icon">•</span> Mon profil
     </div>
   </nav>
   <div class="sidebar-bottom">
     <div class="logout-btn" onclick="logout()">
-      <span>�?�</span> Déconnexion
+      <span>•</span> Déconnexion
     </div>
     <div class="logout-btn" style="margin-top:0.5rem" onclick="openChangePassword()">
-      <span>�oZ</span> Changer mot de passe
+      <span>•</span> Changer mot de passe
     </div>
   </div>
 </aside>
@@ -390,7 +390,7 @@
   <div class="topbar">
     <div class="topbar-left">
       <div class="topbar-title" id="topbarTitle">Tableau de bord</div>
-      <button class="topbar-nav-toggle" id="sidebarToggle" aria-expanded="false" aria-controls="sidebar">�~�</button>
+      <button class="topbar-nav-toggle" id="sidebarToggle" aria-expanded="false" aria-controls="sidebar">&#9776;</button>
     </div>
     <div class="topbar-actions">
       <a class="btn-sm btn-outline" href="index.html">Accueil</a>
@@ -417,7 +417,7 @@
       </div>
       <div class="form-group">
         <label class="form-label">Mot de passe</label>
-        <input type="password" class="form-input" id="authPassword" placeholder="�?��?��?��?��?��?��?��?�">
+        <input type="password" class="form-input" id="authPassword" placeholder="********">
       </div>
       <div class="otp-box" id="otpSection" style="display:none">
         <div class="form-group">
@@ -432,7 +432,7 @@
       <div class="otp-box" id="resetSection" style="display:none">
         <div class="form-group">
           <label class="form-label">Nouveau mot de passe</label>
-          <input type="password" class="form-input" id="resetPassword" placeholder="�?��?��?��?��?��?��?��?�">
+          <input type="password" class="form-input" id="resetPassword" placeholder="********">
         </div>
         <div style="display:flex;gap:0.75rem;justify-content:flex-end">
           <button class="btn-sm btn-accent" onclick="updatePassword()">Mettre à jour</button>
@@ -449,10 +449,10 @@
 
     <!-- CONFIG SUPABASE BANNER -->
     <div class="config-banner" id="configBanner">
-      <span>�s�️</span>
+      <span>•</span>
       <div>
         <strong>Configuration requise :</strong> remplace <code>SUPABASE_URL</code> et <code>SUPABASE_ANON_KEY</code> dans le script en bas de page.
-        <a href="https://supabase.com" target="_blank">Créer un projet Supabase gratuit �?'</a>
+        <a href="https://supabase.com" target="_blank">Créer un projet Supabase gratuit -></a>
       </div>
     </div>
 
@@ -461,27 +461,27 @@
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-label">Réservations aujourd'hui</div>
-          <div class="stat-value" id="statToday">�?"</div>
+          <div class="stat-value" id="statToday">-</div>
           <div class="stat-change up" id="statTodayChange"></div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Cette semaine</div>
-          <div class="stat-value" id="statWeek">�?"</div>
-          <div class="stat-change up">�?' vs semaine dernière</div>
+          <div class="stat-value" id="statWeek">-</div>
+          <div class="stat-change up">-> vs semaine dernière</div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Taux de confirmation</div>
-          <div class="stat-value" id="statRate">�?"</div>
+          <div class="stat-value" id="statRate">-</div>
           <div class="stat-change up">Excellent</div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Prochaine réservation</div>
-          <div class="stat-value" id="statNext" style="font-size:1.3rem">�?"</div>
+          <div class="stat-value" id="statNext" style="font-size:1.3rem">-</div>
           <div class="stat-change" id="statNextClient"></div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Annulations (mois)</div>
-          <div class="stat-value" id="statCancelMonth">�?"</div>
+          <div class="stat-value" id="statCancelMonth">-</div>
           <div class="stat-change" id="statCancelRate"></div>
         </div>
       </div>
@@ -495,7 +495,7 @@
           <div class="card-body">
             <div class="resa-list" id="todayResaList">
               <div class="empty-state">
-                <div class="empty-icon">�Y".</div>
+                <div class="empty-icon">? </div>
                 <p>Aucune réservation aujourd'hui</p>
               </div>
             </div>
@@ -560,7 +560,7 @@
         <div class="card-body">
           <div class="resa-list" id="allResaList">
             <div class="empty-state">
-              <div class="empty-icon">�-^</div>
+              <div class="empty-icon">? </div>
               <p>Aucune réservation pour l'instant</p>
             </div>
           </div>
@@ -578,7 +578,7 @@
         <div class="card-body">
           <div class="services-list" id="servicesList">
             <div class="empty-state">
-              <div class="empty-icon">�-?</div>
+              <div class="empty-icon">? </div>
               <p>Aucun service configuré</p>
             </div>
           </div>
@@ -672,7 +672,7 @@
           <div class="form-row">
             <div class="form-group">
               <label class="form-label">Nom de l'établissement</label>
-              <input type="text" class="form-input" id="profilNom" placeholder="Ex: Studio �?lise">
+              <input type="text" class="form-input" id="profilNom" placeholder="Ex: Studio Elise">
             </div>
             <div class="form-group">
               <label class="form-label">Catégorie</label>
@@ -703,7 +703,7 @@
             <label class="form-label">Photo de présentation</label>
             <input type="file" id="profilPhotoFile" accept="image/*" style="display:none" onchange="previewProfilPhoto(this)">
             <div style="display:flex;gap:0.75rem;align-items:center">
-              <div id="profilPhotoPreview" style="width:64px;height:64px;border-radius:12px;background:var(--creme);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;overflow:hidden">�Y��</div>
+              <div id="profilPhotoPreview" style="width:64px;height:64px;border-radius:12px;background:var(--creme);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;overflow:hidden">eYee</div>
               <div style="flex:1">
                 <button type="button" class="btn-sm btn-outline" onclick="document.getElementById('profilPhotoFile').click()" style="width:100%;margin-bottom:0.4rem">Choisir une photo</button>
                 <div id="profilPhotoStatus" style="font-size:0.75rem;color:var(--gris)">Photo de votre établissement</div>
@@ -723,7 +723,7 @@
           </div>
           <div style="font-size:0.78rem;color:var(--gris);margin-top:0.35rem">Partagez ce lien avec vos clients</div>
         </div>
-        <p id="profilWarning" style="font-size:0.82rem;color:var(--accent);margin-bottom:0.75rem;display:none">�s�️ Complétez votre profil pour apparaître sur la plateforme</p>
+        <p id="profilWarning" style="font-size:0.82rem;color:var(--accent);margin-bottom:0.75rem;display:none">ese️ Complétez votre profil pour apparaître sur la plateforme</p>
         <button class="btn-sm btn-accent" onclick="saveProfil()">Enregistrer le profil</button>
         </div>
       </div>
@@ -732,7 +732,7 @@
   </div><!-- /content -->
 </main>
 
-<!-- MODAL R�?SERVATION MANUELLE -->
+<!-- MODAL RESERVATION MANUELLE -->
 <div class="modal-overlay" id="modalResa">
   <div class="modal">
     <div class="modal-title">Nouvelle réservation</div>
@@ -789,7 +789,7 @@
         <input type="number" class="form-input" id="serviceDuree" placeholder="60" min="15" step="15">
       </div>
       <div class="form-group">
-        <label class="form-label">Prix indicatif (�,�)</label>
+        <label class="form-label">Prix indicatif (e,e)</label>
         <input type="number" class="form-input" id="servicePrix" placeholder="45" min="0">
       </div>
     </div>
@@ -801,7 +801,7 @@
       <label class="form-label">Photo du service</label>
       <input type="file" id="servicePhotoFile" accept="image/*" style="display:none" onchange="previewServicePhoto(this)">
       <div style="display:flex;gap:0.75rem;align-items:center">
-        <div id="servicePhotoPreview" style="width:56px;height:56px;border-radius:10px;background:var(--creme);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;overflow:hidden">�Y"�</div>
+        <div id="servicePhotoPreview" style="width:56px;height:56px;border-radius:10px;background:var(--creme);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;overflow:hidden">eY"e</div>
         <div style="flex:1">
           <button type="button" class="btn-sm btn-outline" onclick="document.getElementById('servicePhotoFile').click()" style="width:100%;margin-bottom:0.4rem">Choisir une photo</button>
           <div id="servicePhotoStatus" style="font-size:0.75rem;color:var(--gris)">Formats acceptés : JPG, PNG, WebP</div>
@@ -823,7 +823,7 @@
 // ============================================================
 // CONFIGURATION SUPABASE
 // Remplace ces valeurs par celles de ton projet Supabase
-// Dashboard Supabase �?' Settings �?' API
+// Dashboard Supabase -> Settings -> API
 // ============================================================
 const SUPABASE_URL = 'https://gmgnrihgaxkebakgixcr.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdtZ25yaWhnYXhrZWJha2dpeGNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDI3NzYsImV4cCI6MjA4OTA3ODc3Nn0.GBJEDXUJDpGyeGVu1EWw1si-bjo7MNTrU72QeJY4FRw';
@@ -995,7 +995,7 @@ async function submitAuth() {
     if(result.error) { showToast(result.error.message,'error'); return; }
     if(authMode==='register') {
       await sendEmailOtp();
-      showToast('Compte cr�� ! V�rifie ton email.','success');
+      showToast('Compte cree ! Verifie ton email.','success');
       document.getElementById('otpSection').style.display = 'block';
       return;
     }
@@ -1004,7 +1004,7 @@ async function submitAuth() {
       setUserUI(currentUser.email);
       await loadData();
       hideAuthGate();
-      showToast('Connect� !','success');
+      showToast('Connecte !','success');
     }
   } catch(e) {
     showToast('Erreur de connexion','error');
@@ -1029,7 +1029,7 @@ async function sendEmailOtp() {
     if(!email) { showToast('Entre ton email', 'error'); return; }
     const { error } = await sb.auth.signInWithOtp({ email });
     if(error) throw error;
-    showToast('Code email envoy�', 'success');
+    showToast('Code email envoye', 'success');
   } catch(e) {
     showToast('Erreur email: '+e.message, 'error');
   }
@@ -1052,7 +1052,7 @@ async function verifyEmailCode() {
       setUserUI(currentUser.email);
       await loadData();
       hideAuthGate();
-      showToast('Email v�rifi� !','success');
+      showToast('Email verifie !','success');
       showView('profil');
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
       document.querySelector('.nav-item[onclick*="profil"]')?.classList.add('active');
@@ -1207,12 +1207,12 @@ function updateStats() {
   }).length;
   document.getElementById('statRate').textContent = rate + '%';
   document.getElementById('statCancelMonth').textContent = monthCancelled.length;
-  document.getElementById('statCancelRate').textContent = monthResas.length ? cancelRate + '% annulées' : '�?"';
+  document.getElementById('statCancelRate').textContent = monthResas.length ? cancelRate + '% annulées' : '-';
   if (next) {
     document.getElementById('statNext').textContent = next.heure;
     document.getElementById('statNextClient').textContent = next.client_prenom + ' ' + next.client_nom;
   } else {
-    document.getElementById('statNext').textContent = '�?"';
+    document.getElementById('statNext').textContent = '-';
   }
 }
 
@@ -1227,13 +1227,13 @@ function resaItemHTML(r) {
   const barColor = r.status === 'confirmed' ? '#2d6a4f' : r.status === 'pending' ? '#f9c74f' : '#c0392b';
   const statusLabel = { confirmed:'Confirmée', pending:'En attente', cancelled:'Annulée' }[r.status] || r.status;
   const statusClass = { confirmed:'status-confirmed', pending:'status-pending', cancelled:'status-cancelled' }[r.status] || '';
-  const motif = r.notes || r.service_nom || r.service || '�?"';
+  const motif = r.notes || r.service_nom || r.service || '-';
   return `<div class="resa-item">
     <div class="resa-time">${r.heure}</div>
     <div class="resa-bar" style="background:${barColor}"></div>
     <div class="resa-info">
       <div class="resa-client">${r.client_prenom} ${r.client_nom}</div>
-      <div class="resa-service">${r.service_nom || r.service || '�?"'}</div>
+      <div class="resa-service">${r.service_nom || r.service || '-'}</div>
       <div class="resa-service">Motif : ${motif}</div>
     </div>
     <span class="resa-status ${statusClass}">${statusLabel}</span>
@@ -1246,7 +1246,7 @@ function renderTodayResas() {
   const list = allReservations.filter(r => r.date === today);
   const el = document.getElementById('todayResaList');
   el.innerHTML = list.length ? list.map(resaItemHTML).join('') :
-    '<div class="empty-state"><div class="empty-icon">�Y".</div><p>Aucune réservation aujourd\'hui</p></div>';
+    '<div class="empty-state"><div class="empty-icon">? </div><p>Aucune réservation aujourd\'hui</p></div>';
 }
 
 function renderAllResas(filter='') {
@@ -1263,7 +1263,7 @@ function renderAllResas(filter='') {
 
   const el = document.getElementById('allResaList');
   el.innerHTML = list.length ? list.map(resaItemHTML).join('') :
-    '<div class="empty-state"><div class="empty-icon">�-^</div><p>Aucune réservation</p></div>';
+    '<div class="empty-state"><div class="empty-icon">? </div><p>Aucune réservation</p></div>';
 }
 
 function filterResas() {
@@ -1366,16 +1366,16 @@ function renderServices() {
         <div class="service-meta">${s.duree} min${s.description ? ' · '+s.description : ''}</div>
       </div>
       <div style="display:flex;align-items:center;gap:1rem">
-        <div class="service-price">${s.prix}�,�</div>
+        <div class="service-price">${s.prix} EUR</div>
         <button class="btn-sm btn-outline" style="font-size:0.75rem" onclick="deleteService(${s.id})">Supprimer</button>
       </div>
     </div>`).join('') :
-    '<div class="empty-state"><div class="empty-icon">�-?</div><p>Aucun service configuré</p></div>';
+    '<div class="empty-state"><div class="empty-icon">? </div><p>Aucun service configuré</p></div>';
 }
 
 function updateServiceSelect() {
   const sel = document.getElementById('resaService');
-  sel.innerHTML = allServices.map(s => `<option value="${s.nom}">${s.nom} (${s.duree}min · ${s.prix}�,�)</option>`).join('');
+  sel.innerHTML = allServices.map(s => `<option value="${s.nom}">${s.nom} (${s.duree}min · ${s.prix}e,e)</option>`).join('');
 }
 
 function exportReservationsCSV() {
@@ -1552,7 +1552,7 @@ async function saveProfil() {
       showToast('Erreur: ' + error.message, 'error');
     } else {
       setUserUI(nom || currentUser.email);
-      showToast('Profil enregistré �o"', 'success');
+      showToast('Profil enregistré eo"', 'success');
       await loadData();
     }
   } else {
@@ -1577,9 +1577,9 @@ function buildCalendar(containerId, month, clickable) {
   const resaDates = new Set(allReservations.filter(r=>r.status!=='cancelled').map(r=>r.date));
 
   let html = `<div class="cal-nav">
-    <button class="cal-btn" onclick="changeMonth(-1,'${containerId}',${clickable})">�?�</button>
+    <button class="cal-btn" onclick="changeMonth(-1,'${containerId}',${clickable})">&lsaquo;</button>
     <div class="cal-month">${months[m]} ${y}</div>
-    <button class="cal-btn" onclick="changeMonth(1,'${containerId}',${clickable})">�?�</button>
+    <button class="cal-btn" onclick="changeMonth(1,'${containerId}',${clickable})">&rsaquo;</button>
   </div><div class="cal-grid">`;
   html += dayLabels.map(d => `<div class="cal-day-label">${d}</div>`).join('');
 
@@ -1678,7 +1678,7 @@ function renderFerieList() {
   el.innerHTML = ferieList.map(f => {
     const d = new Date(f.date+'T12:00:00');
     const label = d.toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
-    return '<div class="ferie-item"><div><div style="font-size:0.875rem;font-weight:500">'+f.motif+'</div><div style="font-size:0.78rem;color:var(--gris)">'+label+'</div></div><button class="ferie-remove" onclick="removeFerie(\''+f.date+'\')">�o.</button></div>';
+    return '<div class="ferie-item"><div><div style="font-size:0.875rem;font-weight:500">'+f.motif+'</div><div style="font-size:0.78rem;color:var(--gris)">'+label+'</div></div><button class="ferie-remove" onclick="removeFerie(\''+f.date+'\')">eo.</button></div>';
   }).join('');
 }
 
@@ -1729,8 +1729,8 @@ function renderExceptionList() {
   el.innerHTML = exceptionList.map(e => {
     const d = new Date(e.date+'T12:00:00');
     const label = d.toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
-    const labelHours = e.status === 'closed' ? 'Fermé' : `${e.start} �?' ${e.end}`;
-    return `<div class="ferie-item"><div><div style="font-size:0.875rem;font-weight:500">${labelHours}</div><div style="font-size:0.78rem;color:var(--gris)">${label}</div></div><button class="ferie-remove" onclick="removeException('${e.date}')">�o.</button></div>`;
+    const labelHours = e.status === 'closed' ? 'Ferme' : `${e.start} -> ${e.end}`;
+    return `<div class="ferie-item"><div><div style="font-size:0.875rem;font-weight:500">${labelHours}</div><div style="font-size:0.78rem;color:var(--gris)">${label}</div></div><button class="ferie-remove" onclick="removeException('${e.date}')">X</button></div>`;
   }).join('');
 }
 
@@ -1753,7 +1753,7 @@ function showView(name) {
   const sidebarToggle = document.getElementById('sidebarToggle');
   if (sidebar?.classList.contains('open')) {
     sidebar.classList.remove('open');
-    sidebarToggle?.setAttribute('aria-expanded', 'false');
+    sidebarToggle.setAttribute('aria-expanded', 'false');
   }
 
   // Mobile-friendly: scroll to the selected view after it becomes visible
@@ -1809,5 +1809,8 @@ init();
 </script>
 </body>
 </html>
+
+
+
 
 
