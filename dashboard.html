@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+﻿?<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reservia â€” Espace Prestataire</title>
+<title>Reservia �?" Espace Prestataire</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -356,31 +356,31 @@
   <nav class="sidebar-nav">
     <div class="nav-section-label">Principal</div>
     <div class="nav-item active" onclick="showView('dashboard')">
-      <span class="nav-icon">â–¦</span> Tableau de bord
+      <span class="nav-icon">�-�</span> Tableau de bord
     </div>
     <div class="nav-item" onclick="showView('calendar')">
-      <span class="nav-icon">â—«</span> Calendrier
+      <span class="nav-icon">�-�</span> Calendrier
     </div>
     <div class="nav-item" onclick="showView('reservations')">
-      <span class="nav-icon">â—ˆ</span> RÃ©servations
+      <span class="nav-icon">�-^</span> Réservations
     </div>
     <div class="nav-section-label">Gestion</div>
     <div class="nav-item" onclick="showView('services')">
-      <span class="nav-icon">â—‡</span> Mes services
+      <span class="nav-icon">�-?</span> Mes services
     </div>
     <div class="nav-item" onclick="showView('disponibilites')">
-      <span class="nav-icon">â—·</span> DisponibilitÃ©s
+      <span class="nav-icon">�-�</span> Disponibilités
     </div>
     <div class="nav-item" onclick="showView('profil')">
-      <span class="nav-icon">â—¯</span> Mon profil
+      <span class="nav-icon">�-�</span> Mon profil
     </div>
   </nav>
   <div class="sidebar-bottom">
     <div class="logout-btn" onclick="logout()">
-      <span>â†©</span> DÃ©connexion
+      <span>�?�</span> Déconnexion
     </div>
     <div class="logout-btn" style="margin-top:0.5rem" onclick="openChangePassword()">
-      <span>âœŽ</span> Changer mot de passe
+      <span>�oZ</span> Changer mot de passe
     </div>
   </div>
 </aside>
@@ -390,11 +390,11 @@
   <div class="topbar">
     <div class="topbar-left">
       <div class="topbar-title" id="topbarTitle">Tableau de bord</div>
-      <button class="topbar-nav-toggle" id="sidebarToggle" aria-expanded="false" aria-controls="sidebar">â˜°</button>
+      <button class="topbar-nav-toggle" id="sidebarToggle" aria-expanded="false" aria-controls="sidebar">�~�</button>
     </div>
     <div class="topbar-actions">
       <a class="btn-sm btn-outline" href="index.html">Accueil</a>
-      <button class="btn-sm btn-outline" onclick="showModal('modalResa')">+ RÃ©servation manuelle</button>
+      <button class="btn-sm btn-outline" onclick="showModal('modalResa')">+ Réservation manuelle</button>
       <button class="btn-sm btn-accent" onclick="showModal('modalService')">+ Nouveau service</button>
     </div>
   </div>
@@ -408,7 +408,7 @@
         <button class="auth-tab" onclick="switchAuthTab('register')">Inscription</button>
       </div>
       <div class="form-group" id="authPhoneGroup" style="display:none">
-        <label class="form-label">TÃ©lÃ©phone *</label>
+        <label class="form-label">Téléphone *</label>
         <input type="tel" class="form-input" id="authPhone" placeholder="+33 6 12 34 56 78">
       </div>
       <div class="form-group">
@@ -417,7 +417,7 @@
       </div>
       <div class="form-group">
         <label class="form-label">Mot de passe</label>
-        <input type="password" class="form-input" id="authPassword" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
+        <input type="password" class="form-input" id="authPassword" placeholder="�?��?��?��?��?��?��?��?�">
       </div>
       <div class="otp-box" id="otpSection" style="display:none">
         <div class="form-group">
@@ -426,20 +426,20 @@
         </div>
         <div style="display:flex;gap:0.75rem;justify-content:flex-end">
           <button class="btn-sm btn-outline" onclick="sendEmailOtp()">Renvoyer le code</button>
-          <button class="btn-sm btn-accent" onclick="verifyEmailCode()">VÃ©rifier</button>
+          <button class="btn-sm btn-accent" onclick="verifyEmailCode()">Vérifier</button>
         </div>
       </div>
       <div class="otp-box" id="resetSection" style="display:none">
         <div class="form-group">
           <label class="form-label">Nouveau mot de passe</label>
-          <input type="password" class="form-input" id="resetPassword" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
+          <input type="password" class="form-input" id="resetPassword" placeholder="�?��?��?��?��?��?��?��?�">
         </div>
         <div style="display:flex;gap:0.75rem;justify-content:flex-end">
-          <button class="btn-sm btn-accent" onclick="updatePassword()">Mettre Ã  jour</button>
+          <button class="btn-sm btn-accent" onclick="updatePassword()">Mettre à jour</button>
         </div>
       </div>
       <div class="modal-actions">
-        <button class="link-btn" onclick="forgotPassword()">Mot de passe oubliÃ©</button>
+        <button class="link-btn" onclick="forgotPassword()">Mot de passe oublié</button>
         <button class="btn-sm btn-accent" id="authSubmitBtn" onclick="submitAuth()">Se connecter</button>
       </div>
     </div>
@@ -449,10 +449,10 @@
 
     <!-- CONFIG SUPABASE BANNER -->
     <div class="config-banner" id="configBanner">
-      <span>âš ï¸</span>
+      <span>�s�️</span>
       <div>
         <strong>Configuration requise :</strong> remplace <code>SUPABASE_URL</code> et <code>SUPABASE_ANON_KEY</code> dans le script en bas de page.
-        <a href="https://supabase.com" target="_blank">CrÃ©er un projet Supabase gratuit â†’</a>
+        <a href="https://supabase.com" target="_blank">Créer un projet Supabase gratuit �?'</a>
       </div>
     </div>
 
@@ -460,28 +460,28 @@
     <div class="view active" id="view-dashboard">
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-label">RÃ©servations aujourd'hui</div>
-          <div class="stat-value" id="statToday">â€”</div>
+          <div class="stat-label">Réservations aujourd'hui</div>
+          <div class="stat-value" id="statToday">�?"</div>
           <div class="stat-change up" id="statTodayChange"></div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Cette semaine</div>
-          <div class="stat-value" id="statWeek">â€”</div>
-          <div class="stat-change up">â†‘ vs semaine derniÃ¨re</div>
+          <div class="stat-value" id="statWeek">�?"</div>
+          <div class="stat-change up">�?' vs semaine dernière</div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Taux de confirmation</div>
-          <div class="stat-value" id="statRate">â€”</div>
+          <div class="stat-value" id="statRate">�?"</div>
           <div class="stat-change up">Excellent</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Prochaine rÃ©servation</div>
-          <div class="stat-value" id="statNext" style="font-size:1.3rem">â€”</div>
+          <div class="stat-label">Prochaine réservation</div>
+          <div class="stat-value" id="statNext" style="font-size:1.3rem">�?"</div>
           <div class="stat-change" id="statNextClient"></div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Annulations (mois)</div>
-          <div class="stat-value" id="statCancelMonth">â€”</div>
+          <div class="stat-value" id="statCancelMonth">�?"</div>
           <div class="stat-change" id="statCancelRate"></div>
         </div>
       </div>
@@ -489,14 +489,14 @@
       <div class="grid-3-1" style="margin-bottom:1.5rem">
         <div class="card">
           <div class="card-header">
-            <span class="card-title">RÃ©servations du jour</span>
+            <span class="card-title">Réservations du jour</span>
             <span style="font-size:0.8rem;color:var(--gris)" id="todayDateLabel"></span>
           </div>
           <div class="card-body">
             <div class="resa-list" id="todayResaList">
               <div class="empty-state">
-                <div class="empty-icon">ðŸ“…</div>
-                <p>Aucune rÃ©servation aujourd'hui</p>
+                <div class="empty-icon">�Y".</div>
+                <p>Aucune réservation aujourd'hui</p>
               </div>
             </div>
           </div>
@@ -513,23 +513,23 @@
       <div class="grid-3-1">
         <div class="card">
           <div class="card-header">
-            <span class="card-title">Calendrier des rÃ©servations</span>
+            <span class="card-title">Calendrier des réservations</span>
           </div>
           <div class="card-body">
             <div id="mainCalContainer"></div>
             <div style="margin-top:1.5rem">
-              <div style="font-size:0.85rem;font-weight:500;margin-bottom:0.75rem" id="selectedDateLabel">SÃ©lectionnez une date</div>
+              <div style="font-size:0.85rem;font-weight:500;margin-bottom:0.75rem" id="selectedDateLabel">Sélectionnez une date</div>
               <div class="resa-list" id="dayResaList">
-                <div class="empty-state"><p>Cliquez sur une date pour voir les rÃ©servations</p></div>
+                <div class="empty-state"><p>Cliquez sur une date pour voir les réservations</p></div>
               </div>
             </div>
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><span class="card-title">CrÃ©neaux disponibles</span></div>
+          <div class="card-header"><span class="card-title">Créneaux disponibles</span></div>
           <div class="card-body">
             <div id="slotsContainer">
-              <div class="empty-state"><p>SÃ©lectionnez une date</p></div>
+              <div class="empty-state"><p>Sélectionnez une date</p></div>
             </div>
           </div>
         </div>
@@ -540,13 +540,13 @@
     <div class="view" id="view-reservations">
       <div class="card">
         <div class="card-header">
-          <span class="card-title">Toutes les rÃ©servations</span>
+          <span class="card-title">Toutes les réservations</span>
           <div style="display:flex;gap:0.5rem">
             <select class="form-input" style="width:auto;padding:0.4rem 0.75rem;font-size:0.82rem" id="filterStatus" onchange="filterResas()">
               <option value="">Tous les statuts</option>
-              <option value="confirmed">ConfirmÃ©es</option>
+              <option value="confirmed">Confirmées</option>
               <option value="pending">En attente</option>
-              <option value="cancelled">AnnulÃ©es</option>
+              <option value="cancelled">Annulées</option>
             </select>
             <select class="form-input" style="width:auto;padding:0.4rem 0.75rem;font-size:0.82rem" id="filterService" onchange="filterResas()">
               <option value="">Tous les services</option>
@@ -560,8 +560,8 @@
         <div class="card-body">
           <div class="resa-list" id="allResaList">
             <div class="empty-state">
-              <div class="empty-icon">â—ˆ</div>
-              <p>Aucune rÃ©servation pour l'instant</p>
+              <div class="empty-icon">�-^</div>
+              <p>Aucune réservation pour l'instant</p>
             </div>
           </div>
         </div>
@@ -578,8 +578,8 @@
         <div class="card-body">
           <div class="services-list" id="servicesList">
             <div class="empty-state">
-              <div class="empty-icon">â—‡</div>
-              <p>Aucun service configurÃ©</p>
+              <div class="empty-icon">�-?</div>
+              <p>Aucun service configuré</p>
             </div>
           </div>
         </div>
@@ -593,7 +593,7 @@
         <div class="card-body">
           <p style="font-size:0.875rem;color:var(--gris);margin-bottom:1.25rem">Configurez les horaires et pauses pour chaque jour de la semaine</p>
           <div class="form-group" style="margin-bottom:1.25rem">
-            <label class="form-label">DurÃ©e des crÃ©neaux</label>
+            <label class="form-label">Durée des créneaux</label>
             <select class="form-input" id="slotDuration" style="width:200px">
               <option value="15">15 min</option>
               <option value="30">30 min</option>
@@ -609,7 +609,7 @@
       </div>
       <div class="card" style="margin-top:1.5rem">
         <div class="card-header">
-          <span class="card-title">Jours fÃ©riÃ©s et fermetures exceptionnelles</span>
+          <span class="card-title">Jours fériés et fermetures exceptionnelles</span>
           <button class="btn-sm btn-outline" onclick="addFerie()">+ Ajouter</button>
         </div>
         <div class="card-body">
@@ -620,12 +620,12 @@
             </div>
             <div class="form-group" style="margin:0;flex:2">
               <label class="form-label">Motif (optionnel)</label>
-              <input type="text" class="form-input" id="ferieMotif" placeholder="Ex: NoÃ«l, CongÃ©s annuels...">
+              <input type="text" class="form-input" id="ferieMotif" placeholder="Ex: Noël, Congés annuels...">
             </div>
             <button class="btn-sm btn-accent" onclick="addFerie()">Ajouter</button>
           </div>
           <div class="ferie-list" id="ferieList">
-            <div class="empty-state" style="padding:1rem"><p>Aucun jour fÃ©riÃ© ou fermeture ajoutÃ©</p></div>
+            <div class="empty-state" style="padding:1rem"><p>Aucun jour férié ou fermeture ajouté</p></div>
           </div>
         </div>
       </div>
@@ -652,13 +652,13 @@
               <label class="form-label">Statut</label>
               <select class="form-input" id="exceptionStatus">
                 <option value="open" selected>Ouvert</option>
-                <option value="closed">FermÃ©</option>
+                <option value="closed">Fermé</option>
               </select>
             </div>
             <button class="btn-sm btn-accent" onclick="addException()">Ajouter</button>
           </div>
           <div class="ferie-list" id="exceptionList">
-            <div class="empty-state" style="padding:1rem"><p>Aucune exception configurÃ©e</p></div>
+            <div class="empty-state" style="padding:1rem"><p>Aucune exception configurée</p></div>
           </div>
         </div>
       </div>
@@ -667,19 +667,19 @@
     <!-- VUE PROFIL -->
     <div class="view" id="view-profil">
       <div class="card">
-        <div class="card-header"><span class="card-title">Informations de l'Ã©tablissement</span></div>
+        <div class="card-header"><span class="card-title">Informations de l'établissement</span></div>
         <div class="card-body">
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Nom de l'Ã©tablissement</label>
-              <input type="text" class="form-input" id="profilNom" placeholder="Ex: Studio Ã‰lise">
+              <label class="form-label">Nom de l'établissement</label>
+              <input type="text" class="form-input" id="profilNom" placeholder="Ex: Studio �?lise">
             </div>
             <div class="form-group">
-              <label class="form-label">CatÃ©gorie</label>
+              <label class="form-label">Catégorie</label>
               <select class="form-input" id="profilCat">
                 <option>Restaurant</option>
                 <option>Coiffeur</option>
-                <option>Institut de beautÃ©</option>
+                <option>Institut de beauté</option>
                 <option>Spa</option>
                 <option>Coach sportif</option>
               </select>
@@ -691,7 +691,7 @@
               <input type="email" class="form-input" id="profilEmail" placeholder="contact@monsite.fr">
             </div>
             <div class="form-group">
-              <label class="form-label">TÃ©lÃ©phone</label>
+              <label class="form-label">Téléphone</label>
               <input type="tel" class="form-input" id="profilTel" placeholder="06 00 00 00 00">
             </div>
           </div>
@@ -700,20 +700,20 @@
             <input type="text" class="form-input" id="profilAdresse" placeholder="12 rue de la Paix, Lyon">
           </div>
           <div class="form-group">
-            <label class="form-label">Photo de prÃ©sentation</label>
+            <label class="form-label">Photo de présentation</label>
             <input type="file" id="profilPhotoFile" accept="image/*" style="display:none" onchange="previewProfilPhoto(this)">
             <div style="display:flex;gap:0.75rem;align-items:center">
-              <div id="profilPhotoPreview" style="width:64px;height:64px;border-radius:12px;background:var(--creme);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;overflow:hidden">ðŸª</div>
+              <div id="profilPhotoPreview" style="width:64px;height:64px;border-radius:12px;background:var(--creme);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;overflow:hidden">�Y��</div>
               <div style="flex:1">
                 <button type="button" class="btn-sm btn-outline" onclick="document.getElementById('profilPhotoFile').click()" style="width:100%;margin-bottom:0.4rem">Choisir une photo</button>
-                <div id="profilPhotoStatus" style="font-size:0.75rem;color:var(--gris)">Photo de votre Ã©tablissement</div>
+                <div id="profilPhotoStatus" style="font-size:0.75rem;color:var(--gris)">Photo de votre établissement</div>
               </div>
             </div>
             <input type="hidden" id="profilPhoto">
           </div>
         <div class="form-group">
           <label class="form-label">Description</label>
-          <textarea class="form-input" id="profilDesc" rows="3" placeholder="DÃ©crivez votre Ã©tablissement..."></textarea>
+          <textarea class="form-input" id="profilDesc" rows="3" placeholder="Décrivez votre établissement..."></textarea>
         </div>
         <div class="form-group">
           <label class="form-label">Lien public de votre page</label>
@@ -723,7 +723,7 @@
           </div>
           <div style="font-size:0.78rem;color:var(--gris);margin-top:0.35rem">Partagez ce lien avec vos clients</div>
         </div>
-        <p id="profilWarning" style="font-size:0.82rem;color:var(--accent);margin-bottom:0.75rem;display:none">âš ï¸ ComplÃ©tez votre profil pour apparaÃ®tre sur la plateforme</p>
+        <p id="profilWarning" style="font-size:0.82rem;color:var(--accent);margin-bottom:0.75rem;display:none">�s�️ Complétez votre profil pour apparaître sur la plateforme</p>
         <button class="btn-sm btn-accent" onclick="saveProfil()">Enregistrer le profil</button>
         </div>
       </div>
@@ -732,13 +732,13 @@
   </div><!-- /content -->
 </main>
 
-<!-- MODAL RÃ‰SERVATION MANUELLE -->
+<!-- MODAL R�?SERVATION MANUELLE -->
 <div class="modal-overlay" id="modalResa">
   <div class="modal">
-    <div class="modal-title">Nouvelle rÃ©servation</div>
+    <div class="modal-title">Nouvelle réservation</div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">PrÃ©nom client</label>
+        <label class="form-label">Prénom client</label>
         <input type="text" class="form-input" id="resaPrenom" placeholder="Marie">
       </div>
       <div class="form-group">
@@ -770,7 +770,7 @@
     </div>
     <div class="modal-actions">
       <button class="btn-sm btn-outline" onclick="closeModal('modalResa')">Annuler</button>
-      <button class="btn-sm btn-accent" onclick="createReservation()">CrÃ©er la rÃ©servation</button>
+      <button class="btn-sm btn-accent" onclick="createReservation()">Créer la réservation</button>
     </div>
   </div>
 </div>
@@ -785,11 +785,11 @@
     </div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">DurÃ©e (minutes)</label>
+        <label class="form-label">Durée (minutes)</label>
         <input type="number" class="form-input" id="serviceDuree" placeholder="60" min="15" step="15">
       </div>
       <div class="form-group">
-        <label class="form-label">Prix indicatif (â‚¬)</label>
+        <label class="form-label">Prix indicatif (�,�)</label>
         <input type="number" class="form-input" id="servicePrix" placeholder="45" min="0">
       </div>
     </div>
@@ -801,10 +801,10 @@
       <label class="form-label">Photo du service</label>
       <input type="file" id="servicePhotoFile" accept="image/*" style="display:none" onchange="previewServicePhoto(this)">
       <div style="display:flex;gap:0.75rem;align-items:center">
-        <div id="servicePhotoPreview" style="width:56px;height:56px;border-radius:10px;background:var(--creme);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;overflow:hidden">ðŸ“·</div>
+        <div id="servicePhotoPreview" style="width:56px;height:56px;border-radius:10px;background:var(--creme);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;overflow:hidden">�Y"�</div>
         <div style="flex:1">
           <button type="button" class="btn-sm btn-outline" onclick="document.getElementById('servicePhotoFile').click()" style="width:100%;margin-bottom:0.4rem">Choisir une photo</button>
-          <div id="servicePhotoStatus" style="font-size:0.75rem;color:var(--gris)">Formats acceptÃ©s : JPG, PNG, WebP</div>
+          <div id="servicePhotoStatus" style="font-size:0.75rem;color:var(--gris)">Formats acceptés : JPG, PNG, WebP</div>
         </div>
       </div>
       <input type="hidden" id="servicePhoto">
@@ -823,7 +823,7 @@
 // ============================================================
 // CONFIGURATION SUPABASE
 // Remplace ces valeurs par celles de ton projet Supabase
-// Dashboard Supabase â†’ Settings â†’ API
+// Dashboard Supabase �?' Settings �?' API
 // ============================================================
 const SUPABASE_URL = 'https://gmgnrihgaxkebakgixcr.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdtZ25yaWhnYXhrZWJha2dpeGNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDI3NzYsImV4cCI6MjA4OTA3ODc3Nn0.GBJEDXUJDpGyeGVu1EWw1si-bjo7MNTrU72QeJY4FRw';
@@ -948,7 +948,7 @@ async function init() {
       showAuthGate();
     }
   } else {
-    setUserUI('Mode dÃ©mo');
+    setUserUI('Mode démo');
     loadDemoData();
   }
   buildDispoGrid();
@@ -995,7 +995,7 @@ async function submitAuth() {
     if(result.error) { showToast(result.error.message,'error'); return; }
     if(authMode==='register') {
       await sendEmailOtp();
-      showToast('Compte créé ! Vérifie ton email.','success');
+      showToast('Compte cr�� ! V�rifie ton email.','success');
       document.getElementById('otpSection').style.display = 'block';
       return;
     }
@@ -1004,7 +1004,7 @@ async function submitAuth() {
       setUserUI(currentUser.email);
       await loadData();
       hideAuthGate();
-      showToast('Connecté !','success');
+      showToast('Connect� !','success');
     }
   } catch(e) {
     showToast('Erreur de connexion','error');
@@ -1018,8 +1018,8 @@ async function loadProfile() {
 
 function ensurePrestaAccess() {
   if(!currentUser) { showAuthGate(); return false; }
-  // AccÃ¨s simplifiÃ© : on ne bloque plus sur la vÃ©rification SMS
-  // (le rÃ´le "presta" reste recommandÃ© mais n'empÃªche plus l'affichage du dashboard).
+  // Accès simplifié : on ne bloque plus sur la vérification SMS
+  // (le rôle "presta" reste recommandé mais n'empêche plus l'affichage du dashboard).
   return true;
 }
 
@@ -1029,7 +1029,7 @@ async function sendEmailOtp() {
     if(!email) { showToast('Entre ton email', 'error'); return; }
     const { error } = await sb.auth.signInWithOtp({ email });
     if(error) throw error;
-    showToast('Code email envoyé', 'success');
+    showToast('Code email envoy�', 'success');
   } catch(e) {
     showToast('Erreur email: '+e.message, 'error');
   }
@@ -1052,7 +1052,7 @@ async function verifyEmailCode() {
       setUserUI(currentUser.email);
       await loadData();
       hideAuthGate();
-      showToast('Email vérifié !','success');
+      showToast('Email v�rifi� !','success');
       showView('profil');
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
       document.querySelector('.nav-item[onclick*="profil"]')?.classList.add('active');
@@ -1069,7 +1069,7 @@ async function forgotPassword() {
     await sb.auth.resetPasswordForEmail(email, {
       redirectTo: window.location.origin + window.location.pathname
     });
-    showToast('Email de rÃ©initialisation envoyÃ©', 'success');
+    showToast('Email de réinitialisation envoyé', 'success');
   } catch(e) {
     showToast('Erreur reset', 'error');
   }
@@ -1095,7 +1095,7 @@ async function updatePassword() {
   if(!newPass) { showToast('Entre un nouveau mot de passe', 'error'); return; }
   try {
     await sb.auth.updateUser({ password: newPass });
-    showToast('Mot de passe mis Ã  jour', 'success');
+    showToast('Mot de passe mis à jour', 'success');
     document.getElementById('resetSection').style.display = 'none';
     window.location.hash = '';
     hideAuthGate();
@@ -1133,7 +1133,7 @@ async function loadData() {
     allReservations = resaRes.data || [];
     allServices = servRes.data || [];
     if(prestaRes.data) fillProfilForm(prestaRes.data);
-    // Si pas de rÃ©servations par ID, essaie par nom du prestataire
+    // Si pas de réservations par ID, essaie par nom du prestataire
     if(allReservations.length === 0 && prestaRes.data?.nom) {
       const { data: resaByNom } = await sb.from('reservations')
         .select('*')
@@ -1144,7 +1144,7 @@ async function loadData() {
     refreshAll();
   } catch(e) {
     loadDemoData();
-    showToast('Mode dÃ©mo activÃ©', 'error');
+    showToast('Mode démo activé', 'error');
   }
 }
 
@@ -1174,7 +1174,7 @@ function copyPublicLink() {
   if(!linkInput) return;
   linkInput.select();
   document.execCommand('copy');
-  showToast('Lien copiÃ©', 'success');
+  showToast('Lien copié', 'success');
 }
 
 function refreshAll() {
@@ -1207,12 +1207,12 @@ function updateStats() {
   }).length;
   document.getElementById('statRate').textContent = rate + '%';
   document.getElementById('statCancelMonth').textContent = monthCancelled.length;
-  document.getElementById('statCancelRate').textContent = monthResas.length ? cancelRate + '% annulÃ©es' : 'â€”';
+  document.getElementById('statCancelRate').textContent = monthResas.length ? cancelRate + '% annulées' : '�?"';
   if (next) {
     document.getElementById('statNext').textContent = next.heure;
     document.getElementById('statNextClient').textContent = next.client_prenom + ' ' + next.client_nom;
   } else {
-    document.getElementById('statNext').textContent = 'â€”';
+    document.getElementById('statNext').textContent = '�?"';
   }
 }
 
@@ -1225,15 +1225,15 @@ function updateTodayLabel() {
 function resaItemHTML(r) {
   const colors = { confirmed:'#2d6a4f', pending:'#856404', cancelled:'#c0392b' };
   const barColor = r.status === 'confirmed' ? '#2d6a4f' : r.status === 'pending' ? '#f9c74f' : '#c0392b';
-  const statusLabel = { confirmed:'ConfirmÃ©e', pending:'En attente', cancelled:'AnnulÃ©e' }[r.status] || r.status;
+  const statusLabel = { confirmed:'Confirmée', pending:'En attente', cancelled:'Annulée' }[r.status] || r.status;
   const statusClass = { confirmed:'status-confirmed', pending:'status-pending', cancelled:'status-cancelled' }[r.status] || '';
-  const motif = r.notes || r.service_nom || r.service || 'â€”';
+  const motif = r.notes || r.service_nom || r.service || '�?"';
   return `<div class="resa-item">
     <div class="resa-time">${r.heure}</div>
     <div class="resa-bar" style="background:${barColor}"></div>
     <div class="resa-info">
       <div class="resa-client">${r.client_prenom} ${r.client_nom}</div>
-      <div class="resa-service">${r.service_nom || r.service || 'â€”'}</div>
+      <div class="resa-service">${r.service_nom || r.service || '�?"'}</div>
       <div class="resa-service">Motif : ${motif}</div>
     </div>
     <span class="resa-status ${statusClass}">${statusLabel}</span>
@@ -1246,7 +1246,7 @@ function renderTodayResas() {
   const list = allReservations.filter(r => r.date === today);
   const el = document.getElementById('todayResaList');
   el.innerHTML = list.length ? list.map(resaItemHTML).join('') :
-    '<div class="empty-state"><div class="empty-icon">ðŸ“…</div><p>Aucune rÃ©servation aujourd\'hui</p></div>';
+    '<div class="empty-state"><div class="empty-icon">�Y".</div><p>Aucune réservation aujourd\'hui</p></div>';
 }
 
 function renderAllResas(filter='') {
@@ -1263,7 +1263,7 @@ function renderAllResas(filter='') {
 
   const el = document.getElementById('allResaList');
   el.innerHTML = list.length ? list.map(resaItemHTML).join('') :
-    '<div class="empty-state"><div class="empty-icon">â—ˆ</div><p>Aucune rÃ©servation</p></div>';
+    '<div class="empty-state"><div class="empty-icon">�-^</div><p>Aucune réservation</p></div>';
 }
 
 function filterResas() {
@@ -1284,7 +1284,7 @@ function renderDayResas(dateStr) {
   document.getElementById('selectedDateLabel').textContent =
     d.toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long' });
   el.innerHTML = list.length ? list.map(resaItemHTML).join('') :
-    '<div class="empty-state"><p>Aucune rÃ©servation ce jour</p></div>';
+    '<div class="empty-state"><p>Aucune réservation ce jour</p></div>';
   renderSlots(dateStr);
 }
 
@@ -1306,11 +1306,11 @@ function renderSlots(dateStr) {
     return;
   }
   if(exception?.status === 'closed') {
-    document.getElementById('slotsContainer').innerHTML = '<div class="empty-state"><p>FermÃ© (exception)</p></div>';
+    document.getElementById('slotsContainer').innerHTML = '<div class="empty-state"><p>Fermé (exception)</p></div>';
     return;
   }
   if(!dayConf || !dayConf.open) {
-    document.getElementById('slotsContainer').innerHTML = '<div class="empty-state"><p>FermÃ© ce jour</p></div>';
+    document.getElementById('slotsContainer').innerHTML = '<div class="empty-state"><p>Fermé ce jour</p></div>';
     return;
   }
 
@@ -1345,7 +1345,7 @@ function renderSlots(dateStr) {
   el.innerHTML = `<div class="slots-grid">${slots.map(s => {
     const booked = bookedTimes.includes(s);
     const onclick = booked ? '' : 'prefillResa(\''+dateStr+'\',\''+s+'\')';
-    return '<div class="slot '+(booked?'booked':'available')+'" onclick="'+onclick+'">'+s+(booked?'<br><span style="font-size:0.7rem">RÃ©servÃ©</span>':'')+'</div>';
+    return '<div class="slot '+(booked?'booked':'available')+'" onclick="'+onclick+'">'+s+(booked?'<br><span style="font-size:0.7rem">Réservé</span>':'')+'</div>';
   }).join('')}</div>`;
 }
 
@@ -1363,23 +1363,23 @@ function renderServices() {
       ${s.photo_url ? `<img src="${s.photo_url}" alt="${s.nom}" style="width:52px;height:52px;border-radius:10px;object-fit:cover;flex-shrink:0">` : ''}
       <div style="flex:1">
         <div class="service-name">${s.nom}</div>
-        <div class="service-meta">${s.duree} min${s.description ? ' Â· '+s.description : ''}</div>
+        <div class="service-meta">${s.duree} min${s.description ? ' · '+s.description : ''}</div>
       </div>
       <div style="display:flex;align-items:center;gap:1rem">
-        <div class="service-price">${s.prix}â‚¬</div>
+        <div class="service-price">${s.prix}�,�</div>
         <button class="btn-sm btn-outline" style="font-size:0.75rem" onclick="deleteService(${s.id})">Supprimer</button>
       </div>
     </div>`).join('') :
-    '<div class="empty-state"><div class="empty-icon">â—‡</div><p>Aucun service configurÃ©</p></div>';
+    '<div class="empty-state"><div class="empty-icon">�-?</div><p>Aucun service configuré</p></div>';
 }
 
 function updateServiceSelect() {
   const sel = document.getElementById('resaService');
-  sel.innerHTML = allServices.map(s => `<option value="${s.nom}">${s.nom} (${s.duree}min Â· ${s.prix}â‚¬)</option>`).join('');
+  sel.innerHTML = allServices.map(s => `<option value="${s.nom}">${s.nom} (${s.duree}min · ${s.prix}�,�)</option>`).join('');
 }
 
 function exportReservationsCSV() {
-  if(!allReservations.length) { showToast('Aucune rÃ©servation Ã  exporter','error'); return; }
+  if(!allReservations.length) { showToast('Aucune réservation à exporter','error'); return; }
   const headers = ['date','heure','statut','service','client_prenom','client_nom','client_email','client_tel','notes'];
   const rows = allReservations.map(r => [
     r.date, r.heure, r.status, (r.service_nom || r.service || ''),
@@ -1402,7 +1402,7 @@ async function sendReminders24h() {
   tomorrow.setDate(tomorrow.getDate() + 1);
   const dateStr = tomorrow.toISOString().split('T')[0];
   const list = allReservations.filter(r => r.date === dateStr && r.status === 'confirmed');
-  if(!list.length) { showToast('Aucune rÃ©servation Ã  J+1','error'); return; }
+  if(!list.length) { showToast('Aucune réservation à J+1','error'); return; }
   for(const r of list) {
     await notifyEmail('reservation_reminder', {
       client_email: r.client_email,
@@ -1412,7 +1412,7 @@ async function sendReminders24h() {
       prestataire_id: r.prestataire_id || null
     });
   }
-  showToast('Rappels envoyÃ©s','success');
+  showToast('Rappels envoyés','success');
 }
 
 // ACTIONS
@@ -1449,7 +1449,7 @@ async function createReservation() {
   refreshAll();
   renderMiniCal('miniCalContainer');
   renderMiniCal('mainCalContainer', true);
-  showToast('RÃ©servation crÃ©Ã©e avec succÃ¨s', 'success');
+  showToast('Réservation créée avec succès', 'success');
   ['resaPrenom','resaNom','resaEmail','resaNotes'].forEach(id => document.getElementById(id).value = '');
 }
 
@@ -1470,16 +1470,16 @@ async function cancelResa(id) {
   });
   refreshAll();
   renderDayResas(allReservations[idx].date);
-  showToast('RÃ©servation annulÃ©e');
+  showToast('Réservation annulée');
 }
 
 async function createService() {
   if(!ensurePrestaAccess()) return;
   const nom = document.getElementById('serviceNom').value.trim();
   const duree = parseInt(document.getElementById('serviceDuree').value);
-  if (!nom || !duree) { showToast('Remplis le nom et la durÃ©e', 'error'); return; }
+  if (!nom || !duree) { showToast('Remplis le nom et la durée', 'error'); return; }
 
-  // Upload photo si fichier sÃ©lectionnÃ©
+  // Upload photo si fichier sélectionné
   let photoUrl = document.getElementById('servicePhoto')?.value || null;
   const photoFile = document.getElementById('servicePhotoFile')?.files[0];
   if(photoFile) {
@@ -1506,7 +1506,7 @@ async function createService() {
   }
   closeModal('modalService');
   renderServices(); updateServiceSelect();
-  showToast('Service ajoutÃ©', 'success');
+  showToast('Service ajouté', 'success');
   ['serviceNom','serviceDuree','servicePrix','serviceDesc','servicePhoto'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
 }
 
@@ -1514,7 +1514,7 @@ async function deleteService(id) {
   allServices = allServices.filter(s => s.id !== id);
   if (sb) await sb.from('services').delete().eq('id', id);
   renderServices(); updateServiceSelect();
-  showToast('Service supprimÃ©');
+  showToast('Service supprimé');
 }
 
 async function saveProfil() {
@@ -1526,8 +1526,8 @@ async function saveProfil() {
   const desc = document.getElementById('profilDesc').value.trim();
   const photo = document.getElementById('profilPhoto').value.trim() || null;
 
-  // Enregistre cÃ´tÃ© Supabase si possible pour alimenter la liste publique de prestataires
-  // Upload photo profil si fichier sÃ©lectionnÃ©
+  // Enregistre côté Supabase si possible pour alimenter la liste publique de prestataires
+  // Upload photo profil si fichier sélectionné
   let photoUrl = document.getElementById('profilPhoto')?.value || null;
   const photoFile = document.getElementById('profilPhotoFile')?.files[0];
   if(photoFile) {
@@ -1552,17 +1552,17 @@ async function saveProfil() {
       showToast('Erreur: ' + error.message, 'error');
     } else {
       setUserUI(nom || currentUser.email);
-      showToast('Profil enregistrÃ© âœ“', 'success');
+      showToast('Profil enregistré �o"', 'success');
       await loadData();
     }
   } else {
-    showToast('Profil enregistrÃ©', 'success');
+    showToast('Profil enregistré', 'success');
   }
 }
 
 function saveDisponibilites() {
   renderFerieList();
-  showToast('Horaires enregistrÃ©s', 'success');
+  showToast('Horaires enregistrés', 'success');
 }
 
 // CALENDRIER
@@ -1571,15 +1571,15 @@ function buildCalendar(containerId, month, clickable) {
   const first = new Date(y, m, 1).getDay();
   const offset = (first === 0 ? 6 : first - 1);
   const days = new Date(y, m+1, 0).getDate();
-  const months = ['Janvier','FÃ©vrier','Mars','Avril','Mai','Juin','Juillet','AoÃ»t','Septembre','Octobre','Novembre','DÃ©cembre'];
+  const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
   const dayLabels = ['L','M','M','J','V','S','D'];
   const today = new Date().toISOString().split('T')[0];
   const resaDates = new Set(allReservations.filter(r=>r.status!=='cancelled').map(r=>r.date));
 
   let html = `<div class="cal-nav">
-    <button class="cal-btn" onclick="changeMonth(-1,'${containerId}',${clickable})">â€¹</button>
+    <button class="cal-btn" onclick="changeMonth(-1,'${containerId}',${clickable})">�?�</button>
     <div class="cal-month">${months[m]} ${y}</div>
-    <button class="cal-btn" onclick="changeMonth(1,'${containerId}',${clickable})">â€º</button>
+    <button class="cal-btn" onclick="changeMonth(1,'${containerId}',${clickable})">�?�</button>
   </div><div class="cal-grid">`;
   html += dayLabels.map(d => `<div class="cal-day-label">${d}</div>`).join('');
 
@@ -1618,13 +1618,13 @@ function buildDispoGrid() {
     const s = dispoState[d];
     return '<div class="dispo-day">' +
       '<div class="dispo-day-label">'+labels[i]+'</div>' +
-      '<button class="dispo-toggle '+(s.open?'on':'')+'" onclick="toggleDispo(\''+d+'\',this)">'+(s.open?'Ouvert':'FermÃ©')+'</button>' +
+      '<button class="dispo-toggle '+(s.open?'on':'')+'" onclick="toggleDispo(\''+d+'\',this)">'+(s.open?'Ouvert':'Fermé')+'</button>' +
       '<div class="day-hours '+(s.open?'visible':'')+'" id="hours-'+d+'">' +
         '<label>Ouverture</label><input type="time" value="'+s.start+'" onchange="updateHours(\''+d+'\',\'start\',this.value)">' +
         '<label>Fermeture</label><input type="time" value="'+s.end+'" onchange="updateHours(\''+d+'\',\'end\',this.value)">' +
-        '<label class="pause-toggle"><input type="checkbox" '+(s.pause?'checked':'')+' onchange="togglePause(\''+d+'\',this)"> Pause dÃ©jeuner</label>' +
+        '<label class="pause-toggle"><input type="checkbox" '+(s.pause?'checked':'')+' onchange="togglePause(\''+d+'\',this)"> Pause déjeuner</label>' +
         '<div class="pause-fields '+(s.pause?'visible':'')+'" id="pause-'+d+'">' +
-          '<label>DÃ©but pause</label><input type="time" value="'+s.pauseStart+'" onchange="updateHours(\''+d+'\',\'pauseStart\',this.value)">' +
+          '<label>Début pause</label><input type="time" value="'+s.pauseStart+'" onchange="updateHours(\''+d+'\',\'pauseStart\',this.value)">' +
           '<label>Fin pause</label><input type="time" value="'+s.pauseEnd+'" onchange="updateHours(\''+d+'\',\'pauseEnd\',this.value)">' +
         '</div>' +
       '</div>' +
@@ -1635,7 +1635,7 @@ function buildDispoGrid() {
 function toggleDispo(day, btn) {
   dispoState[day].open = !dispoState[day].open;
   btn.className = 'dispo-toggle ' + (dispoState[day].open?'on':'');
-  btn.textContent = dispoState[day].open ? 'Ouvert' : 'FermÃ©';
+  btn.textContent = dispoState[day].open ? 'Ouvert' : 'Fermé';
   const hours = document.getElementById('hours-'+day);
   if(hours) hours.className = 'day-hours ' + (dispoState[day].open?'visible':'');
 }
@@ -1653,14 +1653,14 @@ function togglePause(day, checkbox) {
 function addFerie() {
   const date = document.getElementById('ferieDate').value;
   const motif = document.getElementById('ferieMotif').value.trim();
-  if(!date) { showToast('SÃ©lectionne une date', 'error'); return; }
-  if(ferieList.find(f => f.date === date)) { showToast('Cette date est dÃ©jÃ  ajoutÃ©e', 'error'); return; }
+  if(!date) { showToast('Sélectionne une date', 'error'); return; }
+  if(ferieList.find(f => f.date === date)) { showToast('Cette date est déjà ajoutée', 'error'); return; }
   ferieList.push({ date, motif: motif || 'Fermeture exceptionnelle' });
   ferieList.sort((a,b) => a.date.localeCompare(b.date));
   renderFerieList();
   document.getElementById('ferieDate').value = '';
   document.getElementById('ferieMotif').value = '';
-  showToast('Jour ajoutÃ©', 'success');
+  showToast('Jour ajouté', 'success');
 }
 
 function removeFerie(date) {
@@ -1672,13 +1672,13 @@ function renderFerieList() {
   const el = document.getElementById('ferieList');
   if(!el) return;
   if(!ferieList.length) {
-    el.innerHTML = '<div class="empty-state" style="padding:1rem"><p>Aucun jour fÃ©riÃ© ou fermeture ajoutÃ©</p></div>';
+    el.innerHTML = '<div class="empty-state" style="padding:1rem"><p>Aucun jour férié ou fermeture ajouté</p></div>';
     return;
   }
   el.innerHTML = ferieList.map(f => {
     const d = new Date(f.date+'T12:00:00');
     const label = d.toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
-    return '<div class="ferie-item"><div><div style="font-size:0.875rem;font-weight:500">'+f.motif+'</div><div style="font-size:0.78rem;color:var(--gris)">'+label+'</div></div><button class="ferie-remove" onclick="removeFerie(\''+f.date+'\')">âœ•</button></div>';
+    return '<div class="ferie-item"><div><div style="font-size:0.875rem;font-weight:500">'+f.motif+'</div><div style="font-size:0.78rem;color:var(--gris)">'+label+'</div></div><button class="ferie-remove" onclick="removeFerie(\''+f.date+'\')">�o.</button></div>';
   }).join('');
 }
 
@@ -1703,14 +1703,14 @@ function addException() {
   const start = document.getElementById('exceptionStart').value;
   const end = document.getElementById('exceptionEnd').value;
   const status = document.getElementById('exceptionStatus').value;
-  if(!date) { showToast('SÃ©lectionne une date', 'error'); return; }
+  if(!date) { showToast('Sélectionne une date', 'error'); return; }
   exceptionList = exceptionList.filter(e => e.date !== date);
   exceptionList.push({ date, start, end, status });
   exceptionList.sort((a,b) => a.date.localeCompare(b.date));
   saveExceptions();
   renderExceptionList();
   document.getElementById('exceptionDate').value = '';
-  showToast('Exception ajoutÃ©e', 'success');
+  showToast('Exception ajoutée', 'success');
 }
 
 function removeException(date) {
@@ -1723,14 +1723,14 @@ function renderExceptionList() {
   const el = document.getElementById('exceptionList');
   if(!el) return;
   if(!exceptionList.length) {
-    el.innerHTML = '<div class="empty-state" style="padding:1rem"><p>Aucune exception configurÃ©e</p></div>';
+    el.innerHTML = '<div class="empty-state" style="padding:1rem"><p>Aucune exception configurée</p></div>';
     return;
   }
   el.innerHTML = exceptionList.map(e => {
     const d = new Date(e.date+'T12:00:00');
     const label = d.toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
-    const labelHours = e.status === 'closed' ? 'FermÃ©' : `${e.start} â†’ ${e.end}`;
-    return `<div class="ferie-item"><div><div style="font-size:0.875rem;font-weight:500">${labelHours}</div><div style="font-size:0.78rem;color:var(--gris)">${label}</div></div><button class="ferie-remove" onclick="removeException('${e.date}')">âœ•</button></div>`;
+    const labelHours = e.status === 'closed' ? 'Fermé' : `${e.start} �?' ${e.end}`;
+    return `<div class="ferie-item"><div><div style="font-size:0.875rem;font-weight:500">${labelHours}</div><div style="font-size:0.78rem;color:var(--gris)">${label}</div></div><button class="ferie-remove" onclick="removeException('${e.date}')">�o.</button></div>`;
   }).join('');
 }
 
@@ -1744,7 +1744,7 @@ function showView(name) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const viewEl = document.getElementById('view-'+name);
   viewEl.classList.add('active');
-  const titles = { dashboard:'Tableau de bord', calendar:'Calendrier', reservations:'RÃ©servations', services:'Mes services', disponibilites:'DisponibilitÃ©s', profil:'Mon profil' };
+  const titles = { dashboard:'Tableau de bord', calendar:'Calendrier', reservations:'Réservations', services:'Mes services', disponibilites:'Disponibilités', profil:'Mon profil' };
   document.getElementById('topbarTitle').textContent = titles[name] || name;
   if (event?.currentTarget) event.currentTarget.classList.add('active');
 
@@ -1798,7 +1798,7 @@ function logout() {
   if(sb) sb.auth.signOut();
   currentUser = null;
   currentProfile = null;
-  showToast('DÃ©connexion...');
+  showToast('Déconnexion...');
   setTimeout(() => { showAuthGate(); }, 600);
 }
 

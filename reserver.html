@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+﻿?<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reservia â€” RÃ©server</title>
+<title>Reservia �?" Réserver</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -266,23 +266,23 @@
 <nav>
   <div class="nav-top">
     <a href="index.html" class="logo">Reservia<span>.</span></a>
-    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navRight">â˜°</button>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navRight">�~�</button>
   </div>
   <div class="nav-right" id="navRight">
     <a class="btn btn-dark" href="dashboard.html">Espace prestataire</a>
     <span id="navUserName" style="font-size:0.875rem;color:var(--gris)"></span>
-    <button class="btn btn-outline" onclick="showView('mes-reservations')" id="btnMesResas" style="display:none">Mes rÃ©servations</button>
+    <button class="btn btn-outline" onclick="showView('mes-reservations')" id="btnMesResas" style="display:none">Mes réservations</button>
     <button class="btn btn-outline" onclick="showView('profil-client')" id="btnProfil" style="display:none">Profil</button>
     <button class="btn btn-outline" onclick="showAuthModal()" id="btnConnexion">Connexion</button>
-    <button class="btn btn-accent" onclick="logout()" id="btnLogout" style="display:none">DÃ©connexion</button>
+    <button class="btn btn-accent" onclick="logout()" id="btnLogout" style="display:none">Déconnexion</button>
   </div>
 </nav>
 
 <!-- VUE RECHERCHE -->
 <div class="view active" id="view-recherche">
   <div class="search-hero">
-    <h1>Trouvez et rÃ©servez<br><em>en quelques secondes</em></h1>
-    <p>Restaurants, coiffeurs, instituts de beautÃ© et plus encore</p>
+    <h1>Trouvez et réservez<br><em>en quelques secondes</em></h1>
+    <p>Restaurants, coiffeurs, instituts de beauté et plus encore</p>
     <div class="search-bar">
       <input type="text" id="searchInput" placeholder="Rechercher un prestataire..." oninput="filterPrestas()">
       <select id="villeFilter" onchange="filterPrestas()">
@@ -297,7 +297,7 @@
   <div class="cats-row" id="catsRow"></div>
   <div class="results-grid" id="resultsGrid">
     <div class="empty-state" style="grid-column:1/-1">
-      <div class="empty-icon">ðŸ”</div>
+      <div class="empty-icon">�Y"�</div>
       <p>Chargement des prestataires...</p>
     </div>
   </div>
@@ -306,7 +306,7 @@
 <!-- VUE PROFIL PRESTATAIRE -->
 <div class="view" id="view-profil">
   <div style="padding:1rem 2rem;border-bottom:0.5px solid var(--border)">
-    <button class="back-btn" onclick="showView('recherche')">â† Retour aux rÃ©sultats</button>
+    <button class="back-btn" onclick="showView('recherche')">�?� Retour aux résultats</button>
   </div>
   <div class="profil-header" id="profilHeader"></div>
   <div class="booking-layout">
@@ -323,12 +323,12 @@
     </div>
     <div class="booking-panel">
       <div class="booking-card">
-        <div class="booking-card-header">Choisir une date et un crÃ©neau</div>
+        <div class="booking-card-header">Choisir une date et un créneau</div>
         <div class="booking-card-body">
           <div class="cal-nav">
-            <button class="cal-btn" onclick="changeCalMonth(-1)">â€¹</button>
+            <button class="cal-btn" onclick="changeCalMonth(-1)">�?�</button>
             <div class="cal-month" id="calMonthLabel"></div>
-            <button class="cal-btn" onclick="changeCalMonth(1)">â€º</button>
+            <button class="cal-btn" onclick="changeCalMonth(1)">�?�</button>
           </div>
           <div class="cal-grid" id="clientCal"></div>
           <div id="slotsSection" style="display:none">
@@ -336,11 +336,11 @@
             <div class="slots-grid" id="clientSlots"></div>
           </div>
           <div class="booking-summary" id="bookingSummary" style="display:none">
-            <div class="summary-row"><span>Service</span><span id="sumService">â€”</span></div>
-            <div class="summary-row"><span>Date</span><span id="sumDate">â€”</span></div>
-            <div class="summary-row"><span>Heure</span><span id="sumHeure">â€”</span></div>
-            <div class="summary-row"><span>Prix indicatif</span><span id="sumPrix">â€”</span></div>
-            <button class="btn btn-accent" style="width:100%;margin-top:1rem;justify-content:center" onclick="goToForm()">Continuer â†’</button>
+            <div class="summary-row"><span>Service</span><span id="sumService">�?"</span></div>
+            <div class="summary-row"><span>Date</span><span id="sumDate">�?"</span></div>
+            <div class="summary-row"><span>Heure</span><span id="sumHeure">�?"</span></div>
+            <div class="summary-row"><span>Prix indicatif</span><span id="sumPrix">�?"</span></div>
+            <button class="btn btn-accent" style="width:100%;margin-top:1rem;justify-content:center" onclick="goToForm()">Continuer �?'</button>
           </div>
         </div>
       </div>
@@ -351,17 +351,17 @@
 <!-- VUE FORMULAIRE -->
 <div class="view" id="view-formulaire">
   <div class="form-view">
-    <button class="back-btn" onclick="showView('profil')">â† Retour</button>
+    <button class="back-btn" onclick="showView('profil')">�?� Retour</button>
     <h2>Vos informations</h2>
-    <p>Plus qu'une Ã©tape pour confirmer votre rÃ©servation</p>
+    <p>Plus qu'une étape pour confirmer votre réservation</p>
     <div class="booking-recap" id="formRecap"></div>
     <div class="payment-box" id="paymentBox">
       <div style="font-weight:500;margin-bottom:0.4rem">Paiement en ligne (Stripe)</div>
-      <p>Paiement en ligne bientÃ´t disponible. Vous paierez directement chez le prestataire.</p>
+      <p>Paiement en ligne bientôt disponible. Vous paierez directement chez le prestataire.</p>
       <button class="btn btn-outline btn-disabled" style="margin-top:0.6rem">Payer un acompte</button>
     </div>
     <div class="form-group">
-      <label class="form-label">PrÃ©nom *</label>
+      <label class="form-label">Prénom *</label>
       <input type="text" class="form-input" id="clientPrenom" placeholder="Marie">
     </div>
     <div class="form-group">
@@ -369,31 +369,31 @@
       <input type="text" class="form-input" id="clientNom" placeholder="Dupont">
     </div>
     <div class="form-group">
-      <label class="form-label">Email * <span style="font-size:0.75rem;color:var(--gris)">(confirmation envoyÃ©e ici)</span></label>
+      <label class="form-label">Email * <span style="font-size:0.75rem;color:var(--gris)">(confirmation envoyée ici)</span></label>
       <input type="email" class="form-input" id="clientEmail" placeholder="marie@email.fr">
     </div>
     <div class="form-group">
-      <label class="form-label">TÃ©lÃ©phone</label>
+      <label class="form-label">Téléphone</label>
       <input type="tel" class="form-input" id="clientTel" placeholder="06 00 00 00 00">
     </div>
     <div class="form-group">
       <label class="form-label">Notes pour le prestataire</label>
-      <textarea class="form-input" id="clientNotes" rows="2" placeholder="Allergie, demande particuliÃ¨re..."></textarea>
+      <textarea class="form-input" id="clientNotes" rows="2" placeholder="Allergie, demande particulière..."></textarea>
     </div>
-    <button class="btn btn-accent" style="width:100%;justify-content:center;padding:0.875rem" onclick="confirmerReservation()">Confirmer la rÃ©servation</button>
+    <button class="btn btn-accent" style="width:100%;justify-content:center;padding:0.875rem" onclick="confirmerReservation()">Confirmer la réservation</button>
   </div>
 </div>
 
 <!-- VUE CONFIRMATION -->
 <div class="view" id="view-confirmation">
   <div class="confirm-view">
-    <div class="confirm-icon">âœ“</div>
-    <h2>RÃ©servation confirmÃ©e !</h2>
-    <p>Un email de confirmation vous a Ã©tÃ© envoyÃ©. N'oubliez pas votre rendez-vous !</p>
+    <div class="confirm-icon">�o"</div>
+    <h2>Réservation confirmée !</h2>
+    <p>Un email de confirmation vous a été envoyé. N'oubliez pas votre rendez-vous !</p>
     <div class="confirm-card" id="confirmCard"></div>
     <div style="display:flex;gap:1rem;justify-content:center">
-      <button class="btn btn-outline" onclick="showView('mes-reservations')">Voir mes rÃ©servations</button>
-      <button class="btn btn-accent" onclick="showView('recherche')">Faire une autre rÃ©servation</button>
+      <button class="btn btn-outline" onclick="showView('mes-reservations')">Voir mes réservations</button>
+      <button class="btn btn-accent" onclick="showView('recherche')">Faire une autre réservation</button>
     </div>
   </div>
 </div>
@@ -401,12 +401,12 @@
 <!-- VUE MES RESERVATIONS -->
 <div class="view" id="view-mes-reservations">
   <div class="mes-resas">
-    <button class="back-btn" onclick="showView('recherche')">â† Retour</button>
-    <h2>Mes rÃ©servations</h2>
+    <button class="back-btn" onclick="showView('recherche')">�?� Retour</button>
+    <h2>Mes réservations</h2>
     <div id="mesResasList">
       <div class="empty-state">
-        <div class="empty-icon">ðŸ“…</div>
-        <p>Aucune rÃ©servation pour l'instant</p>
+        <div class="empty-icon">�Y".</div>
+        <p>Aucune réservation pour l'instant</p>
       </div>
     </div>
   </div>
@@ -420,16 +420,16 @@
     <div class="form-group">
       <label class="form-label">Note</label>
       <div style="display:flex;gap:0.35rem;margin-top:0.25rem">
-        <button type="button" class="btn btn-outline" style="flex:1;justify-content:center" onclick="selectRating(1)">1 â˜…</button>
-        <button type="button" class="btn btn-outline" style="flex:1;justify-content:center" onclick="selectRating(2)">2 â˜…</button>
-        <button type="button" class="btn btn-outline" style="flex:1;justify-content:center" onclick="selectRating(3)">3 â˜…</button>
-        <button type="button" class="btn btn-outline" style="flex:1;justify-content:center" onclick="selectRating(4)">4 â˜…</button>
-        <button type="button" class="btn btn-outline" style="flex:1;justify-content:center" onclick="selectRating(5)">5 â˜…</button>
+        <button type="button" class="btn btn-outline" style="flex:1;justify-content:center" onclick="selectRating(1)">1 �~.</button>
+        <button type="button" class="btn btn-outline" style="flex:1;justify-content:center" onclick="selectRating(2)">2 �~.</button>
+        <button type="button" class="btn btn-outline" style="flex:1;justify-content:center" onclick="selectRating(3)">3 �~.</button>
+        <button type="button" class="btn btn-outline" style="flex:1;justify-content:center" onclick="selectRating(4)">4 �~.</button>
+        <button type="button" class="btn btn-outline" style="flex:1;justify-content:center" onclick="selectRating(5)">5 �~.</button>
       </div>
     </div>
     <div class="form-group">
       <label class="form-label">Commentaire (optionnel)</label>
-      <textarea class="form-input" id="reviewComment" rows="3" placeholder="Comment s'est passÃ©e la prestation ?"></textarea>
+      <textarea class="form-input" id="reviewComment" rows="3" placeholder="Comment s'est passée la prestation ?"></textarea>
     </div>
     <div class="modal-actions">
       <button class="btn btn-outline" onclick="closeReviewModal()">Annuler</button>
@@ -441,18 +441,18 @@
 <!-- VUE PROFIL CLIENT -->
 <div class="view" id="view-profil-client">
   <div class="form-view">
-    <button class="back-btn" onclick="showView('recherche')">â† Retour</button>
+    <button class="back-btn" onclick="showView('recherche')">�?� Retour</button>
     <h2>Mon profil</h2>
-    <p>GÃ©rez vos informations personnelles et votre mot de passe.</p>
+    <p>Gérez vos informations personnelles et votre mot de passe.</p>
     <div class="booking-recap" style="margin-bottom:1.75rem">
-      <div class="recap-row"><span>Statut</span><span id="profilClientStatut">Non connectÃ©</span></div>
+      <div class="recap-row"><span>Statut</span><span id="profilClientStatut">Non connecté</span></div>
     </div>
     <div class="form-group">
       <label class="form-label">Email (identifiant)</label>
       <input type="email" class="form-input" id="profilClientEmail" disabled>
     </div>
     <div class="form-group">
-      <label class="form-label">TÃ©lÃ©phone (format +33...)</label>
+      <label class="form-label">Téléphone (format +33...)</label>
       <input type="tel" class="form-input" id="profilClientTel" placeholder="+33 6 12 34 56 78">
     </div>
     <button class="btn btn-accent" style="width:100%;justify-content:center;margin-bottom:2rem" onclick="saveClientProfil()">Enregistrer mes infos</button>
@@ -460,13 +460,13 @@
     <h2 style="font-size:1.3rem;margin-bottom:0.75rem">Changer de mot de passe</h2>
     <div class="form-group">
       <label class="form-label">Nouveau mot de passe</label>
-      <input type="password" class="form-input" id="profilNewPassword" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
+      <input type="password" class="form-input" id="profilNewPassword" placeholder="�?��?��?��?��?��?��?��?�">
     </div>
     <div class="form-group">
       <label class="form-label">Confirmer le mot de passe</label>
-      <input type="password" class="form-input" id="profilNewPasswordConfirm" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
+      <input type="password" class="form-input" id="profilNewPasswordConfirm" placeholder="�?��?��?��?��?��?��?��?�">
     </div>
-    <button class="btn btn-outline" style="width:100%;justify-content:center" onclick="changeClientPassword()">Mettre Ã  jour le mot de passe</button>
+    <button class="btn btn-outline" style="width:100%;justify-content:center" onclick="changeClientPassword()">Mettre à jour le mot de passe</button>
   </div>
 </div>
 
@@ -479,7 +479,7 @@
       <button class="modal-tab" onclick="switchAuthTab('register')">Inscription</button>
     </div>
     <div class="form-group" id="authPhoneGroup" style="display:none">
-      <label class="form-label">TÃ©lÃ©phone *</label>
+      <label class="form-label">Téléphone *</label>
       <input type="tel" class="form-input" id="authPhone" placeholder="+33 6 12 34 56 78">
     </div>
     <div class="form-group">
@@ -488,7 +488,7 @@
     </div>
     <div class="form-group">
       <label class="form-label">Mot de passe</label>
-      <input type="password" class="form-input" id="authPassword" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
+      <input type="password" class="form-input" id="authPassword" placeholder="�?��?��?��?��?��?��?��?�">
     </div>
     <div class="otp-box" id="otpSection" style="display:none">
       <div class="form-group">
@@ -497,20 +497,20 @@
       </div>
       <div style="display:flex;gap:0.75rem;justify-content:flex-end">
         <button class="btn btn-outline" onclick="sendEmailOtp()">Renvoyer le code</button>
-        <button class="btn btn-accent" onclick="verifyEmailCode()">VÃ©rifier</button>
+        <button class="btn btn-accent" onclick="verifyEmailCode()">Vérifier</button>
       </div>
     </div>
     <div class="otp-box" id="resetSection" style="display:none">
       <div class="form-group">
         <label class="form-label">Nouveau mot de passe</label>
-        <input type="password" class="form-input" id="resetPassword" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
+        <input type="password" class="form-input" id="resetPassword" placeholder="�?��?��?��?��?��?��?��?�">
       </div>
       <div style="display:flex;gap:0.75rem;justify-content:flex-end">
-        <button class="btn btn-accent" onclick="updatePassword()">Mettre Ã  jour</button>
+        <button class="btn btn-accent" onclick="updatePassword()">Mettre à jour</button>
       </div>
     </div>
     <div class="modal-actions">
-      <button class="link-btn" onclick="forgotPassword()">Mot de passe oubliÃ©</button>
+      <button class="link-btn" onclick="forgotPassword()">Mot de passe oublié</button>
       <button class="btn btn-outline" onclick="closeModal()">Annuler</button>
       <button class="btn btn-accent" id="authSubmitBtn" onclick="submitAuth()">Se connecter</button>
     </div>
@@ -521,7 +521,7 @@
 
 <script>
 // ============================================================
-// CONFIGURATION SUPABASE â€” mÃªme valeurs que dashboard.html
+// CONFIGURATION SUPABASE �?" même valeurs que dashboard.html
 // ============================================================
 const SUPABASE_URL = 'https://gmgnrihgaxkebakgixcr.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdtZ25yaWhnYXhrZWJha2dpeGNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDI3NzYsImV4cCI6MjA4OTA3ODc3Nn0.GBJEDXUJDpGyeGVu1EWw1si-bjo7MNTrU72QeJY4FRw';
@@ -573,9 +573,9 @@ let authMode = 'login';
 let currentReviewReservation = null;
 let currentRating = 0;
 
-const CATEGORIES = ['Tous','Restaurant','Coiffeur','Institut de beautÃ©','Spa','Coach sportif'];
-const CAT_ICONS = { 'Restaurant':'ðŸ½ï¸','Coiffeur':'âœ‚ï¸','Institut de beautÃ©':'ðŸ’…','Spa':'ðŸ’†','Coach sportif':'ðŸ‹ï¸' };
-const CAT_BG = { 'Restaurant':'#fce4d6','Coiffeur':'#e8f4f8','Institut de beautÃ©':'#fbeaf5','Spa':'#f0f4e8','Coach sportif':'#fff3e0' };
+const CATEGORIES = ['Tous','Restaurant','Coiffeur','Institut de beauté','Spa','Coach sportif'];
+const CAT_ICONS = { 'Restaurant':'�Y��️','Coiffeur':'�o,️','Institut de beauté':'�Y'.','Spa':'�Y'?','Coach sportif':'�Y�<️' };
+const CAT_BG = { 'Restaurant':'#fce4d6','Coiffeur':'#e8f4f8','Institut de beauté':'#fbeaf5','Spa':'#f0f4e8','Coach sportif':'#fff3e0' };
 
 function normalizePhoneInput(phone) {
   let p = phone.replace(/[\s.-]/g, '');
@@ -586,11 +586,11 @@ function normalizePhoneInput(phone) {
 
 // DEMO DATA (avant Supabase)
 const DEMO_PRESTAS = [
-  { id:1, nom:'Le Petit Bistrot', categorie:'Restaurant', ville:'Lyon', adresse:'12 rue de la RÃ©publique, Lyon 2e', description:'Restaurant traditionnel lyonnais, cuisine du marchÃ©, vins naturels.', emoji:'ðŸ½ï¸', bg:'#fce4d6', note:4.9, services:[{id:1,nom:'DÃ©jeuner (2 plats)',duree:60,prix:22},{id:2,nom:'DÃ®ner (menu complet)',duree:90,prix:38}] },
-  { id:2, nom:'Studio Ã‰lise', categorie:'Coiffeur', ville:'Lyon', adresse:'45 avenue de Saxe, Lyon 6e', description:'Salon de coiffure moderne, spÃ©cialiste couleur et balayage.', emoji:'âœ‚ï¸', bg:'#e8f4f8', note:4.8, services:[{id:3,nom:'Coupe femme',duree:60,prix:45},{id:4,nom:'Coupe + couleur',duree:120,prix:95},{id:5,nom:'Coupe homme',duree:30,prix:25}] },
-  { id:3, nom:'Spa SÃ©rÃ©nitÃ©', categorie:'Spa', ville:'Lyon', adresse:'8 rue MerciÃ¨re, Lyon 3e', description:'Institut de bien-Ãªtre, massages, soins du visage, rituel hammam.', emoji:'ðŸ’†', bg:'#f0f4e8', note:5.0, services:[{id:6,nom:'Massage relaxant',duree:60,prix:65},{id:7,nom:'Soin visage',duree:45,prix:55},{id:8,nom:'Hammam + massage',duree:90,prix:95}] },
-  { id:4, nom:'Nail Art Studio', categorie:'Institut de beautÃ©', ville:'Lyon', adresse:'22 rue Victor Hugo, Lyon 1er', description:'Manucure, nail art, pose de gel et rÃ©sine par des techniciennes expertes.', emoji:'ðŸ’…', bg:'#fbeaf5', note:4.7, services:[{id:9,nom:'Manucure simple',duree:45,prix:30},{id:10,nom:'Pose gel',duree:60,prix:45}] },
-  { id:5, nom:'Coach Martin', categorie:'Coach sportif', ville:'Lyon', adresse:'Parc de la TÃªte d\'Or, Lyon 6e', description:'Coach sportif certifiÃ©, suivi personnalisÃ©, perte de poids et remise en forme.', emoji:'ðŸ‹ï¸', bg:'#fff3e0', note:4.9, services:[{id:11,nom:'SÃ©ance coaching',duree:60,prix:55},{id:12,nom:'Bilan + programme',duree:90,prix:80}] },
+  { id:1, nom:'Le Petit Bistrot', categorie:'Restaurant', ville:'Lyon', adresse:'12 rue de la République, Lyon 2e', description:'Restaurant traditionnel lyonnais, cuisine du marché, vins naturels.', emoji:'�Y��️', bg:'#fce4d6', note:4.9, services:[{id:1,nom:'Déjeuner (2 plats)',duree:60,prix:22},{id:2,nom:'Dîner (menu complet)',duree:90,prix:38}] },
+  { id:2, nom:'Studio �?lise', categorie:'Coiffeur', ville:'Lyon', adresse:'45 avenue de Saxe, Lyon 6e', description:'Salon de coiffure moderne, spécialiste couleur et balayage.', emoji:'�o,️', bg:'#e8f4f8', note:4.8, services:[{id:3,nom:'Coupe femme',duree:60,prix:45},{id:4,nom:'Coupe + couleur',duree:120,prix:95},{id:5,nom:'Coupe homme',duree:30,prix:25}] },
+  { id:3, nom:'Spa Sérénité', categorie:'Spa', ville:'Lyon', adresse:'8 rue Mercière, Lyon 3e', description:'Institut de bien-être, massages, soins du visage, rituel hammam.', emoji:'�Y'?', bg:'#f0f4e8', note:5.0, services:[{id:6,nom:'Massage relaxant',duree:60,prix:65},{id:7,nom:'Soin visage',duree:45,prix:55},{id:8,nom:'Hammam + massage',duree:90,prix:95}] },
+  { id:4, nom:'Nail Art Studio', categorie:'Institut de beauté', ville:'Lyon', adresse:'22 rue Victor Hugo, Lyon 1er', description:'Manucure, nail art, pose de gel et résine par des techniciennes expertes.', emoji:'�Y'.', bg:'#fbeaf5', note:4.7, services:[{id:9,nom:'Manucure simple',duree:45,prix:30},{id:10,nom:'Pose gel',duree:60,prix:45}] },
+  { id:5, nom:'Coach Martin', categorie:'Coach sportif', ville:'Lyon', adresse:'Parc de la Tête d\'Or, Lyon 6e', description:'Coach sportif certifié, suivi personnalisé, perte de poids et remise en forme.', emoji:'�Y�<️', bg:'#fff3e0', note:4.9, services:[{id:11,nom:'Séance coaching',duree:60,prix:55},{id:12,nom:'Bilan + programme',duree:90,prix:80}] },
 ];
 
 // INIT
@@ -612,7 +612,7 @@ async function init() {
   try {
     const { data } = await sb.from('prestataires').select('*, services(*)').not('nom', 'is', null);
     if(data && data.length) {
-      // Remplace COMPLÃˆTEMENT les dÃ©mos par les vrais prestataires
+      // Remplace COMPL�^TEMENT les démos par les vrais prestataires
       allPrestas = data.map(p => ({
         id: p.id,
         supabase_id: p.id,
@@ -622,7 +622,7 @@ async function init() {
         adresse: p.adresse || '',
         description: p.description || '',
         photo_url: p.photo_url || null,
-        emoji: CAT_ICONS[p.categorie] || 'ðŸª',
+        emoji: CAT_ICONS[p.categorie] || '�Y��',
         bg: CAT_BG[p.categorie] || '#f4f0e8',
         note: p.note || '4.8',
         services: (p.services || []).filter(s => s.actif !== false)
@@ -630,11 +630,11 @@ async function init() {
       filteredPrestas = allPrestas;
       renderPrestas(allPrestas);
     } else {
-      // Pas de prestataires dans Supabase - garde les dÃ©mos
+      // Pas de prestataires dans Supabase - garde les démos
       filteredPrestas = allPrestas;
       renderPrestas(allPrestas);
     }
-  } catch(e) { console.log('Supabase non dispo, mode dÃ©mo'); }
+  } catch(e) { console.log('Supabase non dispo, mode démo'); }
 
   // Lien direct prestataire : ?id=2
   const params = new URLSearchParams(window.location.search);
@@ -700,21 +700,21 @@ function filterPrestas() {
 function renderPrestas(list) {
   const el = document.getElementById('resultsGrid');
   if(!list.length) {
-    el.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">ðŸ”</div><p>Aucun prestataire trouvÃ©</p></div>';
+    el.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">�Y"�</div><p>Aucun prestataire trouvé</p></div>';
     return;
   }
   el.innerHTML = list.map((p, idx) => '<div class="presta-card" onclick="openPrestaIdx('+idx+')">' +
     (p.photo_url
       ? '<div class="presta-thumb" style="padding:0"><img src="'+p.photo_url+'" alt="'+(p.nom||'Prestataire')+'" style="width:100%;height:100%;object-fit:cover;border-radius:0"></div>'
-      : '<div class="presta-thumb" style="background:'+(p.bg||'#f4f0e8')+'">'+(p.emoji||'ðŸª')+'</div>'
+      : '<div class="presta-thumb" style="background:'+(p.bg||'#f4f0e8')+'">'+(p.emoji||'�Y��')+'</div>'
     ) +
     '<div class="presta-body">' +
       '<div class="presta-cat">'+(p.categorie||'')+'</div>' +
       '<div class="presta-name">'+p.nom+'</div>' +
-      '<div class="presta-loc">ðŸ“ '+(p.ville||'')+'</div>' +
+      '<div class="presta-loc">�Y"� '+(p.ville||'')+'</div>' +
       '<div class="presta-footer">' +
         '<span class="presta-dispo">Disponible</span>' +
-        '<span class="presta-rating">â­ '+(p.note||'4.8')+'</span>' +
+        '<span class="presta-rating">⭐ '+(p.note||'4.8')+'</span>' +
       '</div>' +
     '</div></div>'
   ).join('');
@@ -741,14 +741,14 @@ function openPrestaData(presta) {
 
   const avatarHtml = selectedPresta.photo_url
     ? '<div class="profil-avatar" style="padding:0"><img src="'+selectedPresta.photo_url+'" alt="'+(selectedPresta.nom||'Prestataire')+'" style="width:100%;height:100%;object-fit:cover;border-radius:16px"></div>'
-    : '<div class="profil-avatar" style="background:'+(selectedPresta.bg||'#f4f0e8')+'">'+(selectedPresta.emoji||'ðŸª')+'</div>';
+    : '<div class="profil-avatar" style="background:'+(selectedPresta.bg||'#f4f0e8')+'">'+(selectedPresta.emoji||'�Y��')+'</div>';
 
   document.getElementById('profilHeader').innerHTML =
     avatarHtml +
     '<div>' +
       '<div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--gris);margin-bottom:0.3rem">'+(selectedPresta.categorie||'')+'</div>' +
       '<div class="profil-name">'+selectedPresta.nom+'</div>' +
-      '<div class="profil-meta">ðŸ“ '+(selectedPresta.adresse||selectedPresta.ville||'')+'  â­ '+(selectedPresta.note||'4.8')+'</div>' +
+      '<div class="profil-meta">�Y"� '+(selectedPresta.adresse||selectedPresta.ville||'')+'  ⭐ '+(selectedPresta.note||'4.8')+'</div>' +
       '<div class="profil-desc">'+(selectedPresta.description||'')+'</div>' +
     '</div>';
 
@@ -757,10 +757,10 @@ function openPrestaData(presta) {
     services.map(s => '<div class="service-item" id="srv-'+s.id+'" onclick="selectService('+JSON.stringify(s).replace(/"/g,'&quot;')+')">' +
       (s.photo_url
         ? '<div class="service-item-photo"><img src="'+s.photo_url+'" alt="'+s.nom+'"></div>'
-        : '<div class="service-item-photo">ðŸ“·</div>'
+        : '<div class="service-item-photo">�Y"�</div>'
       ) +
       '<div><div class="service-item-name">'+s.nom+'</div><div class="service-item-meta">'+s.duree+' min</div></div>' +
-      '<div class="service-item-price">'+s.prix+'â‚¬</div>' +
+      '<div class="service-item-price">'+s.prix+'�,�</div>' +
     '</div>').join('') :
     '<div class="empty-state"><p>Aucun service disponible</p></div>';
 
@@ -790,10 +790,10 @@ async function renderPrestaReviews(presta) {
       return;
     }
     const avg = (reviews.reduce((s,r)=>s+(r.rating||0),0)/reviews.length).toFixed(1);
-    summaryEl.textContent = `${avg} â˜… Â· ${reviews.length} avis`;
+    summaryEl.textContent = `${avg} �~. · ${reviews.length} avis`;
     listEl.innerHTML = reviews.map(r => {
       const date = r.created_at ? new Date(r.created_at).toLocaleDateString('fr-FR') : '';
-      const stars = 'â˜…'.repeat(r.rating||0) + 'â˜†'.repeat(5-(r.rating||0));
+      const stars = '�~.'.repeat(r.rating||0) + '�~?'.repeat(5-(r.rating||0));
       return `<div class="review-item">
         <div class="review-head"><span>${date}</span><span class="review-stars">${stars}</span></div>
         <div class="review-comment">${r.comment || 'Avis sans commentaire'}</div>
@@ -817,7 +817,7 @@ function selectService(s) {
 // CALENDRIER CLIENT
 function renderClientCal() {
   const y = calMonth.getFullYear(), m = calMonth.getMonth();
-  const months = ['Janvier','FÃ©vrier','Mars','Avril','Mai','Juin','Juillet','AoÃ»t','Septembre','Octobre','Novembre','DÃ©cembre'];
+  const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
   document.getElementById('calMonthLabel').textContent = months[m]+' '+y;
 
   const first = new Date(y,m,1).getDay();
@@ -896,7 +896,7 @@ function updateSummary() {
     document.getElementById('sumService').textContent = selectedService.nom;
     document.getElementById('sumDate').textContent = d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
     document.getElementById('sumHeure').textContent = selectedSlot;
-    document.getElementById('sumPrix').textContent = selectedService.prix+'â‚¬';
+    document.getElementById('sumPrix').textContent = selectedService.prix+'�,�';
     el.style.display = 'block';
   } else {
     el.style.display = 'none';
@@ -904,7 +904,7 @@ function updateSummary() {
 }
 
 function goToForm() {
-  if(!selectedService || !selectedDate || !selectedSlot) { showToast('Choisissez un service, une date et un crÃ©neau','error'); return; }
+  if(!selectedService || !selectedDate || !selectedSlot) { showToast('Choisissez un service, une date et un créneau','error'); return; }
   if(!ensurePhoneVerified()) return;
   const d = new Date(selectedDate+'T12:00:00');
   const dateLabel = d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
@@ -913,8 +913,8 @@ function goToForm() {
     '<div class="recap-row"><span>Service</span><span>'+selectedService.nom+'</span></div>' +
     '<div class="recap-row"><span>Date</span><span>'+dateLabel+'</span></div>' +
     '<div class="recap-row"><span>Heure</span><span>'+selectedSlot+'</span></div>' +
-    '<div class="recap-row"><span>DurÃ©e</span><span>'+selectedService.duree+' min</span></div>' +
-    '<div class="recap-row"><span>Prix indicatif</span><span>'+selectedService.prix+'â‚¬</span></div>';
+    '<div class="recap-row"><span>Durée</span><span>'+selectedService.duree+' min</span></div>' +
+    '<div class="recap-row"><span>Prix indicatif</span><span>'+selectedService.prix+'�,�</span></div>';
 
   if(currentUser) {
     document.getElementById('clientEmail').value = currentUser.email;
@@ -964,16 +964,16 @@ async function confirmerReservation() {
   document.getElementById('confirmCard').innerHTML =
     '<div class="recap-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;font-size:0.875rem"><span style="color:var(--gris)">Chez</span><span style="font-weight:500">'+selectedPresta.nom+'</span></div>' +
     '<div class="recap-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;font-size:0.875rem"><span style="color:var(--gris)">Service</span><span style="font-weight:500">'+selectedService.nom+'</span></div>' +
-    '<div class="recap-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;font-size:0.875rem"><span style="color:var(--gris)">Date</span><span style="font-weight:500">'+dateLabel+' Ã  '+selectedSlot+'</span></div>' +
+    '<div class="recap-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;font-size:0.875rem"><span style="color:var(--gris)">Date</span><span style="font-weight:500">'+dateLabel+' à '+selectedSlot+'</span></div>' +
     '<div class="recap-row" style="display:flex;justify-content:space-between;padding:0.4rem 0;font-size:0.875rem"><span style="color:var(--gris)">Confirmation</span><span style="font-weight:500">'+email+'</span></div>';
 
   showView('confirmation');
-  showToast('RÃ©servation confirmÃ©e !','success');
+  showToast('Réservation confirmée !','success');
 }
 
 // MES RESERVATIONS
 async function loadMesResas() {
-  if(!currentUser) { showToast('Connectez-vous pour voir vos rÃ©servations','error'); return; }
+  if(!currentUser) { showToast('Connectez-vous pour voir vos réservations','error'); return; }
   try {
     const [{ data: resaData }, { data: reviewData }] = await Promise.all([
       sb.from('reservations').select('*').eq('client_user_id', currentUser.id).order('date'),
@@ -988,7 +988,7 @@ async function loadMesResas() {
 function renderMesResas(list, reviewsByResa = {}) {
   const el = document.getElementById('mesResasList');
   if(!list.length) {
-    el.innerHTML = '<div class="empty-state"><div class="empty-icon">ðŸ“…</div><p>Aucune rÃ©servation pour l\'instant</p></div>';
+    el.innerHTML = '<div class="empty-state"><div class="empty-icon">�Y".</div><p>Aucune réservation pour l\'instant</p></div>';
     return;
   }
   el.innerHTML = list.map(r => {
@@ -996,16 +996,16 @@ function renderMesResas(list, reviewsByResa = {}) {
     const day = d.getDate();
     const month = d.toLocaleDateString('fr-FR',{month:'short'});
     const statusClass = r.status==='confirmed'?'status-confirmed':'status-cancelled';
-    const statusLabel = r.status==='confirmed'?'ConfirmÃ©e':'AnnulÃ©e';
+    const statusLabel = r.status==='confirmed'?'Confirmée':'Annulée';
     const hasReview = !!reviewsByResa[r.id];
-    const reviewLabel = hasReview ? `Note : ${reviewsByResa[r.id].rating}â˜…` : '';
+    const reviewLabel = hasReview ? `Note : ${reviewsByResa[r.id].rating}�~.` : '';
     const cancellable = r.status==='confirmed' && canCancelReservation(r);
     const prestaName = r.prestataire_nom || getPrestaNameById(r.prestataire_id) || 'Prestataire';
     return '<div class="resa-card">' +
       '<div class="resa-card-date"><div class="resa-card-day">'+day+'</div><div class="resa-card-month">'+month+'</div></div>' +
       '<div class="resa-card-info">' +
         '<div class="resa-card-name">'+prestaName+'</div>' +
-        '<div class="resa-card-meta">'+( r.service_nom || r.service || '' )+' Â· '+r.heure+'</div>' +
+        '<div class="resa-card-meta">'+( r.service_nom || r.service || '' )+' · '+r.heure+'</div>' +
       '</div>' +
       '<div class="resa-card-actions">' +
         '<span class="status-pill '+statusClass+'">'+statusLabel+'</span>' +
@@ -1051,9 +1051,9 @@ function canCancelReservation(resa) {
 async function cancelReservation(resaId) {
   if(!currentUser) { showToast('Connectez-vous pour annuler','error'); return; }
   const resa = await sb.from('reservations').select('id, date, heure, status').eq('id', resaId).single();
-  if(resa.error || !resa.data) { showToast('RÃ©servation introuvable','error'); return; }
-  if(resa.data.status !== 'confirmed') { showToast('DÃ©jÃ  annulÃ©e','error'); return; }
-  if(!canCancelReservation(resa.data)) { showToast('Annulation possible jusqu\'Ã  24h avant','error'); return; }
+  if(resa.error || !resa.data) { showToast('Réservation introuvable','error'); return; }
+  if(resa.data.status !== 'confirmed') { showToast('Déjà annulée','error'); return; }
+  if(!canCancelReservation(resa.data)) { showToast('Annulation possible jusqu\'à 24h avant','error'); return; }
   let handled = false;
   const funcRes = await callEdgeFunction('cancel-reservation', { reservation_id: resaId });
   if(funcRes.ok) handled = true;
@@ -1066,7 +1066,7 @@ async function cancelReservation(resaId) {
     date: resa.data.date,
     heure: resa.data.heure
   });
-  showToast('RÃ©servation annulÃ©e','success');
+  showToast('Réservation annulée','success');
   await loadMesResas();
 }
 
@@ -1098,12 +1098,12 @@ async function submitAuth() {
     if(result.error) { showToast(result.error.message,'error'); return; }
     if(authMode==='register') {
       await sendEmailOtp();
-      showToast('Compte créé ! Vérifie ton email.','success');
+      showToast('Compte cr�� ! V�rifie ton email.','success');
       document.getElementById('otpSection').style.display = 'block';
       return;
     }
     closeModal();
-    showToast('Connecté !','success');
+    showToast('Connect� !','success');
     await loadMesResas();
   } catch(e) { showToast('Erreur de connexion','error'); }
 }
@@ -1116,7 +1116,7 @@ function openChangePassword() {
 
 async function logout() {
   await sb.auth.signOut();
-  showToast('DÃ©connectÃ©');
+  showToast('Déconnecté');
   showView('recherche');
 }
 
@@ -1125,7 +1125,7 @@ async function loadProfile() {
   const { data } = await sb.from('profiles').select('role, phone_e164, phone_verified').eq('id', currentUser.id).single();
   currentProfile = data || null;
   if(currentProfile?.role === 'presta') {
-    showToast('Compte prestataire dÃ©tectÃ©', 'error');
+    showToast('Compte prestataire détecté', 'error');
     setTimeout(() => window.location.href = 'dashboard.html', 1200);
   }
 }
@@ -1136,9 +1136,9 @@ async function saveClientProfil() {
   const phone = telRaw ? normalizePhoneInput(telRaw) : null;
   try {
     await sb.from('profiles').update({ phone_e164: phone }).eq('id', currentUser.id);
-    showToast('Profil mis Ã  jour','success');
+    showToast('Profil mis à jour','success');
   } catch(e) {
-    showToast('Erreur lors de la mise Ã  jour','error');
+    showToast('Erreur lors de la mise à jour','error');
   }
 }
 
@@ -1150,7 +1150,7 @@ async function changeClientPassword() {
   if (p1 !== p2) { showToast('Les mots de passe ne correspondent pas','error'); return; }
   try {
     await sb.auth.updateUser({ password: p1 });
-    showToast('Mot de passe mis Ã  jour','success');
+    showToast('Mot de passe mis à jour','success');
     document.getElementById('profilNewPassword').value = '';
     document.getElementById('profilNewPasswordConfirm').value = '';
   } catch(e) {
@@ -1159,8 +1159,8 @@ async function changeClientPassword() {
 }
 
 function ensurePhoneVerified() {
-  // Version simplifiÃ©e sans blocage SMS :
-  // on demande juste Ã  l'utilisateur d'Ãªtre connectÃ©.
+  // Version simplifiée sans blocage SMS :
+  // on demande juste à l'utilisateur d'être connecté.
   if(!currentUser) {
     showAuthModal();
     return false;
@@ -1174,7 +1174,7 @@ async function sendEmailOtp() {
     if(!email) { showToast('Entre ton email', 'error'); return; }
     const { error } = await sb.auth.signInWithOtp({ email });
     if(error) throw error;
-    showToast('Code email envoyé', 'success');
+    showToast('Code email envoy�', 'success');
   } catch(e) {
     showToast('Erreur email: '+e.message, 'error');
   }
@@ -1188,7 +1188,7 @@ async function verifyEmailCode() {
     const { data, error } = await sb.auth.verifyOtp({ email, token: code, type: 'email' });
     if(error) throw error;
     currentUser = data?.user || (await sb.auth.getUser()).data.user;
-    showToast('Email vérifié', 'success');
+    showToast('Email v�rifi�', 'success');
     document.getElementById('otpSection').style.display = 'none';
     closeModal();
     await loadMesResas();
@@ -1206,11 +1206,11 @@ function showView(name) {
     const emailEl = document.getElementById('profilClientEmail');
     const telEl = document.getElementById('profilClientTel');
     if (currentUser) {
-      statutEl.textContent = 'ConnectÃ©';
+      statutEl.textContent = 'Connecté';
       emailEl.value = currentUser.email || '';
       telEl.value = currentProfile?.phone_e164 || '';
     } else {
-      statutEl.textContent = 'Non connectÃ©';
+      statutEl.textContent = 'Non connecté';
       emailEl.value = '';
       telEl.value = '';
       showAuthModal();
