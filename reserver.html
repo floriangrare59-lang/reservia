@@ -1285,6 +1285,11 @@ async function submitReview() {
   if (!currentRating) { showToast('Sélectionne une note','error'); return; }
   const comment = document.getElementById('reviewComment').value.trim();
   try {
+    const { data: existing } = await sb.from('reviews')
+      .select('id')
+      .eq('reservation_id', currentReviewReservation.id)
+      .maybeSingle();
+    if(existing?.id) { showToast('Avis déjà envoyé','error'); return; }
     await sb.from('reviews').insert([{
       reservation_id: currentReviewReservation.id,
       user_id: currentUser.id,
