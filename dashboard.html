@@ -834,6 +834,7 @@ let sb = null;
 let currentUser = null;
 let currentProfile = null;
 let authMode = 'login';
+let authOtpType = 'signup';
 
 async function callEdgeFunction(name, payload) {
   if(!sb) return { ok:false };
@@ -994,8 +995,8 @@ async function submitAuth() {
     }
     if(result.error) { showToast(result.error.message,'error'); return; }
     if(authMode==='register') {
-      await sendEmailOtp();
-      showToast('Compte cree ! Verifie ton email.','success');
+      authOtpType = 'signup';
+      showToast('Compte cree ! Code envoye par email.','success');
       document.getElementById('otpSection').style.display = 'block';
       return;
     }
@@ -1027,9 +1028,9 @@ async function sendEmailOtp() {
   try {
     const email = document.getElementById('authEmail').value.trim();
     if(!email) { showToast('Entre ton email', 'error'); return; }
-    const { error } = await sb.auth.signInWithOtp({ email });
+    const { error } = await sb.auth.resend({ type: 'signup', email });
     if(error) throw error;
-    showToast('Code email envoye', 'success');
+    showToast('Code email renvoye', 'success');
   } catch(e) {
     showToast('Erreur email: '+e.message, 'error');
   }
@@ -1040,7 +1041,7 @@ async function verifyEmailCode() {
   const code = document.getElementById('otpCode').value.trim();
   if(!email || !code) { showToast('Entre le code email', 'error'); return; }
   try {
-    const { data, error } = await sb.auth.verifyOtp({ email, token: code, type: 'email' });
+    const { data, error } = await sb.auth.verifyOtp({ email, token: code, type: authOtpType || 'signup' });
     if(error) throw error;
     currentUser = data?.user || (await sb.auth.getUser()).data.user;
     if(currentUser) {
